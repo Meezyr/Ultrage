@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}ULTRAGE{% endblock %}</title>
         <link rel="icon" href="{{ asset('img/favicon.png') }}">
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        <script src="{{ asset('js/app.js') }}"></script>
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+        <!-- Import styles -->
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     </head>
     <body>
         {% if app.user %}
@@ -21,6 +18,13 @@
                 <p>Bonjour {{ app.user.pseudo }} - <a href="{{ path('app_logout') }}">Déconnexion</a></p>
             </nav>
         {% endif %}
+
         {% block body %}{% endblock %}
+
+        <!-- Import scripts -->
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>
