@@ -11,11 +11,7 @@ $(document).ready(function() {
 
     //Fonction copie dans presse papier
     function copyToClipboard(text) {
-        var temp = $('<input>');
-        $("body").append(temp);
-        temp.val(text).select();
-        document.execCommand("copy");
-        temp.remove();
+        navigator.clipboard.writeText(text);
     }
 
     //Fonction changement de couleur
@@ -83,17 +79,17 @@ $(document).ready(function() {
 
     //Appui boutons
     $('input[type=button]').click(function() {
-        if (this.id == 'btnHexColor') {
+        if (this.id === 'btnHexColor') {
             var hexaChange = $('#codeHexColor').val();
             colorPicker.color.hex8String = hexaChange;
             actualisationColor();
         }
-        if (this.id == 'btnRgbColor') {
+        if (this.id === 'btnRgbColor') {
             var rgbaChange = $('#codeRgbColor').val();
             colorPicker.color.rgbaString = rgbaChange;
             actualisationColor();
         }
-        if (this.id == 'btnHslColor') {
+        if (this.id === 'btnHslColor') {
             var hslaChange = $('#codeHslColor').val();
             colorPicker.color.hslaString = hslaChange;
             actualisationColor();
@@ -124,7 +120,7 @@ $(document).ready(function() {
     $('#color').click(function(e) {
         e.preventDefault();
         copyToClipboard(colorPicker.color.hex8String);
-        if (stateOkImg == false) {
+        if (stateOkImg === false) {
             stateOkImg = true;
             var imgOk = $('<img src="/img/copy.png">');
             $("body #color").append(imgOk);
