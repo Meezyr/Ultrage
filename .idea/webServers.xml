@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="b1ab14f5-6462-4c0b-bf59-27495c308e24" name="OVH" url="https://ultrage.meezyr.fr/">
+        <fileTransfer rootFolder="/var/www/ultrage" accessType="SFTP" host="152.228.143.57" port="22" sshConfigId="4a186d61-aa77-4b65-ac5a-413d75a61fc8" sshConfig="corentin@152.228.143.57:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
