@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Inscription</h1>
+
+    {{ form_start(registrationForm) }}
+        {{ form_widget(registrationForm.firstName, {'attr': {'placeholder': 'Prénom'}}) }}<br>
+        {{ form_widget(registrationForm.name, {'attr': {'placeholder': 'Nom de famille'}}) }}<br>
+        {{ form_widget(registrationForm.pseudo, {'attr': {'placeholder': 'Pseudo'}}) }}
+        {{ form_row(registrationForm.gender, {'label': 'Genre :'}) }}
+        {{ form_row(registrationForm.birthDate, {'label': 'Date de naissance :'}) }}
+        {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Adresse e-mail'}}) }}<br>
+        {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de passe'}}) }}<br><br>
+        {{ form_widget(registrationForm.captcha, {'attr': {'placeholder': 'Réponse'}}) }}<br><br>
+        {{ form_widget(registrationForm.agreeTerms) }}
+        <label for="registration_form_agreeTerms">J'ai lu et j'accepte les conditions d'utilisation et la politique de confidentialité.</label><br><br>
+
+        <button type="submit" class="btn">S'inscrire</button><br>
+        <a href="/login">Je suis déjà inscrit</a>
+    {{ form_end(registrationForm) }}
+{% endblock %}
