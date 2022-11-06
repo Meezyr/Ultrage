@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}ULTRAGE{% endblock %}</title>
         <link rel="icon" href="{{ asset('img/favicon.png') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
