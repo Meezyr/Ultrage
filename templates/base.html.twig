@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="fr">
+<html lang="fr" class="h-100">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}ULTRAGE{% endblock %}</title>
@@ -13,8 +13,12 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     </head>
 
-    <body>
-        {% block body %}{% endblock %}
+    <body class="h-100">
+        <main class="d-flex flex-row h-100">
+            {% include 'sidebar.html.twig' %}
+
+            {% block body %}{% endblock %}
+        </main>
 
         <!-- Import scripts -->
         {% block javascripts %}

@@ -2,7 +2,7 @@
   "devDependencies": {
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.2",
-    "jquery": "^3.6.1"
+    "jquery": "^3.6.3"
   },
   "dependencies": {
     "node-require": "^0.0.10"
