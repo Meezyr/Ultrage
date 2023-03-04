@@ -1,23 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'inscrire{% endblock %}
 
 {% block body %}
-    <h1>Inscription</h1>
+    <section class="form-register m-auto">
+        {{ form_start(registrationForm) }}
+            <h1 class="h3 mb-5 fw-normal">Saisissez vos informations pour vous inscrire</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_widget(registrationForm.firstName, {'attr': {'placeholder': 'Prénom'}}) }}<br>
-        {{ form_widget(registrationForm.name, {'attr': {'placeholder': 'Nom de famille'}}) }}<br>
-        {{ form_widget(registrationForm.pseudo, {'attr': {'placeholder': 'Pseudo'}}) }}
-        {{ form_row(registrationForm.gender, {'label': 'Genre :'}) }}
-        {{ form_row(registrationForm.birthDate, {'label': 'Date de naissance :'}) }}
-        {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Adresse e-mail'}}) }}<br>
-        {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de passe'}}) }}<br><br>
-        {{ form_widget(registrationForm.captcha, {'attr': {'placeholder': 'Réponse'}}) }}<br><br>
-        {{ form_widget(registrationForm.agreeTerms) }}
-        <label for="registration_form_agreeTerms">J'ai lu et j'accepte les conditions d'utilisation et la politique de confidentialité.</label><br><br>
+            <div class="form-floating mb-3">
+                {{ form_widget(registrationForm.firstName, {'attr': {'placeholder': 'Prénom', 'class': 'form-control', 'autofocus': 'autofocus'}}) }}
+                {{ form_label(registrationForm.firstName) }}
+            </div>
+            <div class="form-floating mb-4">
+                {{ form_widget(registrationForm.name, {'attr': {'placeholder': 'Nom', 'class': 'form-control'}}) }}
+                {{ form_label(registrationForm.name) }}
+            </div>
+            <div class="form-floating mb-4">
+                {{ form_widget(registrationForm.pseudo, {'attr': {'placeholder': 'Pseudo', 'class': 'form-control'}}) }}
+                {{ form_label(registrationForm.pseudo) }}
+            </div>
+            <div class="mb-4">
+                {{ form_row(registrationForm.gender) }}
+            </div>
+            <div class="form-floating mb-4">
+                {{ form_widget(registrationForm.birthDate) }}
+                {{ form_label(registrationForm.birthDate) }}
+            </div>
+            <div class="form-floating mb-4">
+                {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Adresse e-mail', 'class': 'form-control'}}) }}
+                {{ form_label(registrationForm.email) }}
+            </div>
+            <div class="row g-3 mb-4">
+                {{ form_row(registrationForm.plainPassword) }}
+            </div>
+            <div class="form-floating mb-4">
+                {{ form_widget(registrationForm.captcha, {'attr': {'placeholder': 'Réponse', 'class': 'form-control'}}) }}
+                {{ form_label(registrationForm.captcha) }}
+            </div>
 
-        <button type="submit" class="btn">S'inscrire</button><br>
-        <a href="/login">Je suis déjà inscrit</a>
-    {{ form_end(registrationForm) }}
+            <div class="form-check mb-4">
+                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                <label for="registration_form_agreeTerms" class="form-check-label">J'ai lu et j'accepte les conditions d'utilisation et la politique de confidentialité.</label>
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">S'inscrire</button>
+        {{ form_end(registrationForm) }}
+    </section>
+
+{#    <h1>Inscription</h1>#}
+
+{#    {{ form_start(registrationForm) }}#}
+{#        {{ form_widget(registrationForm.firstName, {'attr': {'placeholder': 'Prénom'}}) }}<br>#}
+{#        {{ form_widget(registrationForm.name, {'attr': {'placeholder': 'Nom de famille'}}) }}<br>#}
+{#        {{ form_widget(registrationForm.pseudo, {'attr': {'placeholder': 'Pseudo'}}) }}#}
+{#        {{ form_row(registrationForm.gender, {'label': 'Genre :'}) }}#}
+{#        {{ form_row(registrationForm.birthDate, {'label': 'Date de naissance :'}) }}#}
+{#        {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Adresse e-mail'}}) }}<br>#}
+{#        {{ form_widget(registrationForm.plainPassword, {'attr': {'placeholder': 'Mot de passe'}}) }}<br><br>#}
+{#        {{ form_widget(registrationForm.captcha, {'attr': {'placeholder': 'Réponse'}}) }}<br><br>#}
+{#        {{ form_widget(registrationForm.agreeTerms) }}#}
+{#        <label for="registration_form_agreeTerms">J'ai lu et j'accepte les conditions d'utilisation et la politique de confidentialité.</label><br><br>#}
+
+{#        <button type="submit" class="btn">S'inscrire</button><br>#}
+{#    {{ form_end(registrationForm) }}#}
 {% endblock %}
