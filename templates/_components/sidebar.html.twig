@@ -7,9 +7,9 @@
             <span class="fs-4">Ultrage</span>
         </a>
         <hr>
-        <nav>
+        <nav class="mb-auto">
             {# Voir pour mettre le menu dans un autre fichier et le rendre automatique #}
-            <ul class="nav nav-pills flex-column mb-auto">
+            <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a href="{{ path('app_ucouleur') }}"
                        class="nav-link {% if currentPath == path('app_ucouleur') %}active{% else %}text-white{% endif %}"
@@ -34,6 +34,11 @@
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
                 </ul>
+            </div>
+        {% else %}
+            <div class="d-flex flex-row justify-content-between">
+                <a class="btn btn-outline-light" href="{{ path('app_login') }}"><i class="bi bi-person"></i> S'identifier</a>
+                <a class="btn btn-outline-light" href="{{ path('app_register') }}"><i class="bi bi-person-plus"></i> S'inscrire</a>
             </div>
         {% endif %}
     </aside>
