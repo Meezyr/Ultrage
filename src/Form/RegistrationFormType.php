@@ -41,14 +41,12 @@ class RegistrationFormType extends AbstractType
                 ],
                 'expanded' => true,
                 'multiple' => false,
-                'choice_attr' => function ($choice, $key, $value) {
-                    return ['class' => 'form-check-input'];
-                },
             ])
             ->add('birthDate', DateType::class, [
                 'widget' => 'single_text',
                 'label' => 'Date de naissance',
                 'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'input-group-text'],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Adresse e-mail',
@@ -60,6 +58,8 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Vous devez accepter nos conditions pour continuer.',
                     ]),
                 ],
+                'label' => "J'ai lu et j'accepte les conditions d'utilisation et la politique de confidentialité.",
+                'label_attr' => ['class' => 'form-check-label'],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
@@ -71,14 +71,10 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => [
                     'label' => 'Mot de passe',
                     'attr' => ['placeholder' => 'Mot de passe', 'class' => 'form-control'],
-                    'label_attr' => ['class' => 'form-label'],
-                    'row_attr' => ['class' => 'col-md-6'],
                 ],
                 'second_options' => [
                     'label' => 'Confirmer le mot de passe',
                     'attr' => ['placeholder' => 'Confirmer le mot de passe', 'class' => 'form-control'],
-                    'label_attr' => ['class' => 'form-label'],
-                    'row_attr' => ['class' => 'col-md-6'],
                 ],
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
@@ -94,7 +90,9 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('captcha', CaptchaType::class)
+            ->add('captcha', CaptchaType::class, [
+                'label_attr' => ['class' => 'input-group-text'],
+            ])
         ;
     }
 
