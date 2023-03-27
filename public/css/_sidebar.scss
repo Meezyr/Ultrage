@@ -1,6 +1,11 @@
 .sidebar {
   width: 280px;
+  height: 100%;
 
+  .fixed-sidebar {
+    width: 280px;
+    height: 100%;
+  }
   .img-sidebar {
     width: 32px;
     height: 32px;
