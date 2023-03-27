@@ -17,7 +17,9 @@
         <main class="d-flex flex-row">
             {{ block("sidebar", "_components/sidebar.html.twig") }}
 
-            {% block body %}{% endblock %}
+            <div class="content">
+                {% block body %}{% endblock %}
+            </div>
         </main>
 
         <!-- Import scripts -->

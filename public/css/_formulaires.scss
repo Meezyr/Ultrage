@@ -1,0 +1,9 @@
+.form-register {
+  .captcha_image {
+    border: 1px solid #ced4da;
+  }
+}
+
+input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .input-group-text {
+  cursor: pointer;
+}
