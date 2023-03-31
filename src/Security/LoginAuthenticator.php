@@ -47,7 +47,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
-        return new RedirectResponse('https://ultrage.meezyr.fr/');
+        return new RedirectResponse('/');
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
