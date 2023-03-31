@@ -10804,7 +10804,10 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
   overflow: hidden;
 }
 .img-avatar-profile img {
-  aspect-ratio: 1/1;
+  height: auto;
+  width: auto;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
