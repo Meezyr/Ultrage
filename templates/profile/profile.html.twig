@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block body %}
+
+    <section class="form-register w-50 m-auto py-5">
+        {% if user.avatar %}
+            <div class="img-avatar-profile">
+                <img src="{{ asset('img/avatar/' ~ user.avatar) }}"
+                     alt="Avatar de {{ user.pseudo ? user.pseudo|capitalize : '' }}" class="mx-auto d-block rounded">
+            </div>
+        {% endif %}
+
+        {{ form_start(userForm) }}
+            <h1 class="h3 mb-5 fw-normal">Modifier vos informations personnelles.</h1>
+
+            <div class="form-floating mb-3">
+                {{ form_widget(userForm.firstName) }}
+                {{ form_label(userForm.firstName) }}
+            </div>
+
+            <div class="form-floating mb-3">
+                {{ form_widget(userForm.name) }}
+                {{ form_label(userForm.name) }}
+            </div>
+
+            <div class="form-floating mb-3">
+                {{ form_widget(userForm.pseudo) }}
+                {{ form_label(userForm.pseudo) }}
+            </div>
+
+            <div class="form-floating mb-3">
+                {{ form_widget(userForm.description) }}
+                {{ form_label(userForm.description) }}
+            </div>
+
+            <fieldset class="row mb-3">
+                <legend class="col-form-label col-sm-2 pt-0">{{ form_label(userForm.gender) }}</legend>
+                <div class="col-sm-10">
+                    {% for radioGender in userForm.gender %}
+                        <div class="form-check">
+                            {{ form_row(radioGender, {'attr': {'class': 'form-check-input'}, 'label_attr': {'class': 'form-check-label'}}) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+
+            <div class="input-group mb-3">
+                {{ form_label(userForm.birthDate) }}
+                {{ form_widget(userForm.birthDate) }}
+            </div>
+
+            <div class="form-floating mb-3">
+                {{ form_widget(userForm.email) }}
+                {{ form_label(userForm.email) }}
+            </div>
+
+            <div class="input-group mb-3">
+                {{ form_label(userForm.avatar) }}
+                {{ form_widget(userForm.avatar) }}
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Modifier votre profil</button>
+        {{ form_end(userForm) }}
+    </section>
+
+{% endblock %}

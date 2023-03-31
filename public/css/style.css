@@ -10795,4 +10795,16 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
   cursor: pointer;
 }
 
+.img-avatar-profile {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.img-avatar-profile img {
+  aspect-ratio: 1/1;
+}
+
 /*# sourceMappingURL=style.css.map */

@@ -11,3 +11,4 @@
 ###< symfony/framework-bundle ###
 /migrations/
 /symfony.exe
+/public/img/avatar/*
