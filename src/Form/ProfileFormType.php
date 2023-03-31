@@ -37,6 +37,7 @@ class ProfileFormType extends AbstractType
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
+                'required' => false,
                 'attr' => ['placeholder' => 'Inscrivez votre description ici', 'class' => 'form-control', 'style' => 'height: 100px;'],
             ])
             ->add('email', EmailType::class, [
