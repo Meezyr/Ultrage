@@ -27,7 +27,10 @@
             {% if app.user %}
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        {#                <img src="https://github.com/mdo.png" alt="" class="rounded-circle me-2" width="32" height="32">#}
+                        {% if app.user.avatar %}
+                            <img src="{{ asset('img/avatar/' ~ app.user.avatar) }}"
+                                 alt="Avatar de {{ app.user.pseudo ? app.user.pseudo|capitalize : '' }}" class="rounded-circle me-2" width="32" height="32">
+                        {% endif %}
                         <strong>{{ app.user.pseudo|capitalize }}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">

@@ -1,13 +1,14 @@
 .sidebar {
-  width: 280px;
-  height: 100vh;
-
-  .fixed-sidebar {
     width: 280px;
-    height: 100%;
-  }
-  .img-sidebar {
-    width: 32px;
-    height: 32px;
-  }
+    height: 100vh;
+
+    .fixed-sidebar {
+        width: 280px;
+        height: 100%;
+    }
+
+    .img-sidebar {
+        width: 32px;
+        height: 32px;
+    }
 }
