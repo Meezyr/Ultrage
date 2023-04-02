@@ -45,9 +45,17 @@ class ProfileController extends AbstractController
             $entityManager->flush();
         }
 
+        $statusbar = [
+            'links' => [
+                ['title' => 'test01', 'url' => 'https://google.com/', 'target' => true],
+                ['title' => 'test02', 'url' => '/', 'target' => false],
+            ],
+        ];
+
         return $this->render('profile/profile.html.twig', [
             'userForm' => $form->createView(),
             'user' => $user,
+            'dataStatusbar' => $statusbar,
         ]);
     }
 }

@@ -1,15 +1,5 @@
 .img-avatar-profile {
     width: 200px;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-
-    img {
-        height: auto;
-        width: auto;
-        max-height: 100%;
-        max-width: 100%;
-    }
+    object-fit: cover;
+    aspect-ratio: 1/1;
 }

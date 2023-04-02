@@ -6,10 +6,8 @@
 
     <section class="form-register w-50 m-auto py-5">
         {% if user.avatar %}
-            <div class="img-avatar-profile mx-auto">
-                <img src="{{ asset('img/avatar/' ~ user.avatar) }}"
-                     alt="Avatar de {{ user.pseudo ? user.pseudo|capitalize : '' }}" class="rounded">
-            </div>
+            <img src="{{ asset('img/avatar/' ~ user.avatar) }}"
+                 alt="Avatar de {{ user.pseudo ? user.pseudo|capitalize : '' }}" class="img-avatar-profile d-block mx-auto rounded">
         {% endif %}
 
         {{ form_start(userForm) }}
