@@ -26,9 +26,16 @@ class UCouleurController extends AbstractController
 
         $users = $userRepository->findAll();
 
+        $statusbar = [
+            'links' => [
+
+            ],
+        ];
+
         return $this->render('ucouleur/ucouleur.html.twig', [
             'couleurs' => $couleurs,
-            'users' => $users
+            'users' => $users,
+            'dataStatusbar' => $statusbar,
         ]);
     }
 
@@ -42,11 +49,13 @@ class UCouleurController extends AbstractController
             $keyword = array_merge($arrayKeyword);
 
             $userAuthor = $userRepository->find($this->getUser()->getId());
-            $couleursPaletteNumber = $colorRepository->findBy(['userAuthor' => $userAuthor], ['paletteNumber' => 'DESC']);
-            $paletteNumber = $couleursPaletteNumber[0]->getPaletteNumber();
+
+            //Finir le fonction de palettes
+//            $couleursPaletteNumber = $colorRepository->findBy(['userAuthor' => $userAuthor], ['paletteNumber' => 'DESC']);
+//            $paletteNumber = $couleursPaletteNumber[0]->getPaletteNumber();
 
             $color = new Color();
-            $color->setPaletteNumber($paletteNumber);
+//            $color->setPaletteNumber($paletteNumber);
             $color->setColorCode($colorCode);
             $color->setCreationDate(new \DateTime());
             $color->setUserAuthor($this->getUser());

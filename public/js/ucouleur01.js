@@ -27,6 +27,8 @@ $(document).ready(function() {
         width: 350,
         // Set the initial color to pure red
         color: "#ffffff",
+        borderWidth: 5,
+        borderColor: "#ffffff",
         layout: [
             {
                 component: iro.ui.Wheel,
@@ -37,25 +39,29 @@ $(document).ready(function() {
             {
                 component: iro.ui.Slider,
                 options: {
-                    sliderType: 'saturation'
+                    sliderType: 'saturation',
+                    sliderSize: 40,
                 }
             },
             {
                 component: iro.ui.Slider,
                 options: {
-                    sliderType: 'value'
+                    sliderType: 'value',
+                    sliderSize: 40,
                 }
             },
             {
                 component: iro.ui.Slider,
                 options: {
-                    sliderType: 'kelvin'
+                    sliderType: 'kelvin',
+                    sliderSize: 40,
                 }
             },
             {
                 component: iro.ui.Slider,
                 options: {
-                    sliderType: 'alpha'
+                    sliderType: 'alpha',
+                    sliderSize: 40,
                 }
             },
         ]
@@ -78,39 +84,33 @@ $(document).ready(function() {
     });
 
     //Appui boutons
-    $('input[type=button]').click(function() {
-        if (this.id === 'btnHexColor') {
-            var hexaChange = $('#codeHexColor').val();
-            colorPicker.color.hex8String = hexaChange;
-            actualisationColor();
-        }
-        if (this.id === 'btnRgbColor') {
-            var rgbaChange = $('#codeRgbColor').val();
-            colorPicker.color.rgbaString = rgbaChange;
-            actualisationColor();
-        }
-        if (this.id === 'btnHslColor') {
-            var hslaChange = $('#codeHslColor').val();
-            colorPicker.color.hslaString = hslaChange;
-            actualisationColor();
-        }
+    $('input[type=text]').keyup(function() {
+            if (this.value.length >= 9 && this.id === 'codeHexColor') {
+                colorPicker.color.hex8String = this.value;
+                actualisationColor();
+            }
+            if (this.value.length >= 16 && this.id === 'codeRgbColor') {
+                colorPicker.color.rgbaString = this.value;
+                actualisationColor();
+            }
+            if (this.value.length >= 18 && this.id === 'codeHslColor') {
+                colorPicker.color.hslaString = this.value;
+                actualisationColor();
+            }
     });
 
     //Appui touche entrer
     $("input[type=text]").keypress(function(event) {
-        if ((event.which == 13) && (this.id == 'codeHexColor')) {
-            var hexaChange = $('#codeHexColor').val();
-            colorPicker.color.hex8String = hexaChange;
+        if ((event.which === 13) && (this.id === 'codeHexColor')) {
+            colorPicker.color.hex8String = $('#codeHexColor').val();
             actualisationColor();
         }
-        if ((event.which == 13) && (this.id == 'codeRgbColor')) {
-            var rgbaChange = $('#codeRgbColor').val();
-            colorPicker.color.rgbaString = rgbaChange;
+        if ((event.which === 13) && (this.id === 'codeRgbColor')) {
+            colorPicker.color.rgbaString = $('#codeRgbColor').val();
             actualisationColor();
         }
-        if ((event.which == 13) && (this.id == 'codeHslColor')) {
-            var hslaChange = $('#codeHslColor').val();
-            colorPicker.color.hslaString = hslaChange;
+        if ((event.which === 13) && (this.id === 'codeHslColor')) {
+            colorPicker.color.hslaString = $('#codeHslColor').val();
             actualisationColor();
         }
     });
@@ -122,7 +122,7 @@ $(document).ready(function() {
         copyToClipboard(colorPicker.color.hex8String);
         if (stateOkImg === false) {
             stateOkImg = true;
-            var imgOk = $('<img src="/img/copy.png">');
+            var imgOk = $('<div class="copy-notif bg-dark bg-gradient"><i class="bi bi-clipboard-check fs-1 text-white"></i></div>');
             $("body #color").append(imgOk);
         }
         setTimeout(() => {
@@ -133,12 +133,20 @@ $(document).ready(function() {
 
     //Clic sur le bouton random color
     $('#randomColor').click(function() {
-        var randomColor = Math.floor(Math.random()*16777215).toString(16);
+        var randomNumber = Math.floor(Math.random()*16777215);
+        var randomColor = randomNumber.toString(16);
+
+        if (randomColor.length < 6) {
+            for (let i = 0; randomColor.length < 6; i++) {
+                randomColor = randomColor.concat(0);
+            }
+        }
+
         changerCouleurSelect(randomColor);
     });
 
     //Clic sur les couleurs pré-enregistré
-    $('.colorPresave').click(function() {
+    $('.color-presave').click(function() {
         if (this.id === 'colorPresaveNoir') {
             changerCouleurSelect('000000');
         }
@@ -157,7 +165,7 @@ $(document).ready(function() {
     });
 
     //Clic sur les couleurs personnalisés
-    $('.colorFondUser').click(function(e) {
+    $('.color-fond-user').click(function(e) {
         var selectColorUser = e.currentTarget.attributes["color"].value;
 
         changerCouleurSelect(selectColorUser);

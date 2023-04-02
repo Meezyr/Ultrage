@@ -1,0 +1,52 @@
+.select-color {
+
+    .picker-color {
+        width: min-content;
+
+        #picker {
+            width: min-content;
+        }
+        #colorFond {
+            width: 100%;
+            height: 100px;
+
+            #color {
+                width: 100%;
+                height: 100%;
+                cursor: pointer;
+                position: relative;
+
+                .copy-notif {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}
+
+.manage-color {
+    .color-fond-user {
+        width: 80px;
+        height: 40px;
+
+        .colors-user {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+    }
+    .color-presave {
+        cursor: pointer;
+
+        &>div {
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            margin: 0 20px 0 0;
+        }
+    }
+}
