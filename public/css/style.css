@@ -10770,6 +10770,20 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+html {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-color: #212529 #adb5bd;
+  scrollbar-width: thin;
+}
+html ::-webkit-scrollbar {
+  width: 8px;
+  background: #adb5bd;
+}
+html ::-webkit-scrollbar-thumb {
+  background: #212529;
+}
+
 .content {
   width: calc(100vw - 280px);
 }
@@ -10777,6 +10791,7 @@ textarea.form-control-lg {
 .sidebar {
   width: 280px;
   height: 100vh;
+  z-index: 3;
 }
 .sidebar .fixed-sidebar {
   width: 280px;
@@ -10785,6 +10800,28 @@ textarea.form-control-lg {
 .sidebar .img-sidebar {
   width: 32px;
   height: 32px;
+}
+.sidebar .img-avatar-sidebar {
+  width: 32px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
+.statusbar {
+  width: 100%;
+  height: 45px;
+  z-index: 2;
+}
+.statusbar h1, .statusbar .h1 {
+  cursor: default;
+}
+.statusbar hr {
+  height: 80%;
+}
+.statusbar .fixed-statusbar {
+  width: 100%;
+  padding: 0 0 0 280px;
+  height: 45px;
 }
 
 .form-register .captcha_image {
@@ -10797,17 +10834,8 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
 
 .img-avatar-profile {
   width: 200px;
-  height: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.img-avatar-profile img {
-  height: auto;
-  width: auto;
-  max-height: 100%;
-  max-width: 100%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
 }
 
 /*# sourceMappingURL=style.css.map */

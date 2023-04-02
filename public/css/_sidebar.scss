@@ -1,6 +1,7 @@
 .sidebar {
     width: 280px;
     height: 100vh;
+    z-index: 3;
 
     .fixed-sidebar {
         width: 280px;
@@ -10,5 +11,11 @@
     .img-sidebar {
         width: 32px;
         height: 32px;
+    }
+
+    .img-avatar-sidebar {
+        width: 32px;
+        object-fit: cover;
+        aspect-ratio: 1/1;
     }
 }

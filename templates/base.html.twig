@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+{% set titrePage = block("title") %}
+
 <html lang="fr" class="h-100">
     <head>
         <meta charset="UTF-8">
@@ -17,7 +19,11 @@
         <main class="d-flex flex-row">
             {{ block("sidebar", "_components/sidebar.html.twig") }}
 
-            <div class="content">
+            <div class="content text-bg-light">
+                {% if dataStatusbar is defined %}
+                    {{ block("statusbar", "_components/statusbar.html.twig") }}
+                {% endif %}
+
                 {% block body %}{% endblock %}
             </div>
         </main>

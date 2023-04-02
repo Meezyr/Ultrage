@@ -1,3 +1,19 @@
+html {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: $gray-900 $gray-500;
+    scrollbar-width: thin;
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        background: $gray-500;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: $gray-900;
+    }
+}
+
 .content {
-  width: calc(100vw - 280px);
+    width: calc(100vw - 280px);
 }

@@ -29,7 +29,7 @@
                     <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         {% if app.user.avatar %}
                             <img src="{{ asset('img/avatar/' ~ app.user.avatar) }}"
-                                 alt="Avatar de {{ app.user.pseudo ? app.user.pseudo|capitalize : '' }}" class="rounded-circle me-2" width="32" height="32">
+                                 alt="Avatar de {{ app.user.pseudo ? app.user.pseudo|capitalize : '' }}" class="img-avatar-sidebar rounded-circle me-2">
                         {% endif %}
                         <strong>{{ app.user.pseudo|capitalize }}</strong>
                     </a>

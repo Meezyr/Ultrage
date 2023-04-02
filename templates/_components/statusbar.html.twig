@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block statusbar %}
+    <header class="statusbar position-relative">
+        <div class="fixed-statusbar d-flex flex-column justify-content-center position-fixed top-0 end-0 text-bg-secondary">
+            <nav class="nav" aria-label="Secondary navigation">
+                <h1 class="nav-link m-0 lh-base fw-bold text-white text-decoration-none">{{ titrePage }}</h1>
+                <hr class="vr my-auto mx-1">
+                {% if dataStatusbar.links %}
+                    {% for link in dataStatusbar.links %}
+                        <a class="nav-link text-white text-decoration-none" href="{{ link.url }}" {{ link.target == true ? 'target="_blank"': "" }}>{{ link.title }}</a>
+                    {% endfor %}
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+{% endblock %}
