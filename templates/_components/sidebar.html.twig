@@ -23,9 +23,9 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ path('app_utache') }}"
-                           class="nav-link {{ (currentPath == path('app_utache')) ? 'active' : 'text-white' }}"
+                           class="nav-link {{ currentPath == path('app_utache') or currentPath == path('app_utache_new') ? 'active' : 'text-white' }}"
                            title="Accèder à U-Tâche"
-                           {{ currentPath == path('app_utache') ? 'aria-current="page"' }}
+                           {{ currentPath == path('app_utache') or currentPath == path('app_utache_new') ? 'aria-current="page"' }}
                         >
                             <i class="bi bi-journal-check pe-none me-2"></i>
                             U-Tâche

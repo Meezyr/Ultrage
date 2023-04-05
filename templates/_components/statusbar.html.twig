@@ -1,6 +1,8 @@
 {% extends "base.html.twig" %}
 
 {% block statusbar %}
+    {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
     <header class="statusbar position-relative">
         <div class="fixed-statusbar d-flex flex-column justify-content-center position-fixed top-0 end-0 text-bg-secondary">
             <nav class="nav" aria-label="Secondary navigation">
@@ -8,7 +10,12 @@
                 <hr class="vr my-auto mx-1">
                 {% if dataStatusbar.links %}
                     {% for link in dataStatusbar.links %}
-                        <a class="nav-link text-white text-decoration-none" href="{{ link.url }}" {{ link.target == true ? 'target="_blank"': "" }}>{{ link.title }}</a>
+                        <a class="nav-link text-white text-decoration-none {{ currentPath == link.url ? 'active' : '' }}"
+                           {{ currentPath == link.url ? 'aria-current="page"' }}
+                           href="{{ link.url }}" {{ link.target == true ? 'target="_blank"': "" }}
+                        >
+                            {{ link.title }}
+                        </a>
                     {% endfor %}
                 {% endif %}
             </nav>
