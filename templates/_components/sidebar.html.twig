@@ -13,12 +13,22 @@
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
                         <a href="{{ path('app_ucouleur') }}"
-                           class="nav-link {% if currentPath == path('app_ucouleur') %}active{% else %}text-white{% endif %}"
+                           class="nav-link {{ (currentPath == path('app_ucouleur')) ? 'active' : 'text-white' }}"
                            title="Accèder à U-Couleur"
-                           {% if currentPath == path('app_ucouleur') %}aria-current="page"{% endif %}
+                           {{ currentPath == path('app_ucouleur') ? 'aria-current="page"' }}
                         >
                             <i class="bi bi-palette pe-none me-2"></i>
                             U-Couleur
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ path('app_utache') }}"
+                           class="nav-link {{ (currentPath == path('app_utache')) ? 'active' : 'text-white' }}"
+                           title="Accèder à U-Tâche"
+                           {{ currentPath == path('app_utache') ? 'aria-current="page"' }}
+                        >
+                            <i class="bi bi-journal-check pe-none me-2"></i>
+                            U-Tâche
                         </a>
                     </li>
                 </ul>
