@@ -13,31 +13,69 @@
             <div class="col p-0 border border-warning">
                 <h2>0. A faire</h2>
                 <div id="makeTask" class="w-100 h-100">
-                    <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
-                        <p>Massa vocibus nisl eros</p>
-                        <time datetime="2020-06-19">June 19, 2020</time>
-                    </div>
+                    {% if tasks[0] is defined %}
+                        {% for makeTask in tasks[0] %}
+                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
+                                <p>{{ makeTask.title|capitalize }}</p>
+                                <p>{{ makeTask.state }} %</p>
+                                <time datetime="{{ makeTask.release|date("Y-m-d") }}">{{ makeTask.release|date("d/m/Y") }}</time>
+                                {% if makeTask.update %}
+                                    <time datetime="{{ makeTask.update|date("Y-m-d") }}">{{ makeTask.update|date("d/m/Y") }}</time>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="col p-0 border border-warning">
                 <h2>1. En attente</h2>
                 <div id="waitTask" class="w-100 h-100">
-                    <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
-                        <p>Massa vocibus nisl eros</p>
-                        <time datetime="2020-06-19">June 19, 2020</time>
-                    </div>
+                    {% if tasks[1] is defined %}
+                        {% for waitTask in tasks[1] %}
+                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
+                                <p>{{ waitTask.title|capitalize }}</p>
+                                <p>{{ waitTask.state }} %</p>
+                                <time datetime="{{ waitTask.release|date("Y-m-d") }}">{{ waitTask.release|date("d/m/Y") }}</time>
+                                {% if waitTask.update %}
+                                    <time datetime="{{ waitTask.update|date("Y-m-d") }}">{{ waitTask.update|date("d/m/Y") }}</time>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="col p-0 border border-warning">
                 <h2>2. En cours</h2>
                 <div id="progressTask" class="w-100 h-100">
-
+                    {% if tasks[2] is defined %}
+                        {% for progressTask in tasks[2] %}
+                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
+                                <p>{{ progressTask.title|capitalize }}</p>
+                                <p>{{ progressTask.state }} %</p>
+                                <time datetime="{{ progressTask.release|date("Y-m-d") }}">{{ progressTask.release|date("d/m/Y") }}</time>
+                                {% if progressTask.update %}
+                                    <time datetime="{{ progressTask.update|date("Y-m-d") }}">{{ progressTask.update|date("d/m/Y") }}</time>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="col p-0 border border-warning">
                 <h2>3. Terminé</h2>
                 <div id="endTask" class="w-100 h-100">
-
+                    {% if tasks[3] is defined %}
+                        {% for endTask in tasks[3] %}
+                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
+                                <p>{{ endTask.title|capitalize }}</p>
+                                <p>{{ endTask.state }} %</p>
+                                <time datetime="{{ endTask.release|date("Y-m-d") }}">{{ endTask.release|date("d/m/Y") }}</time>
+                                {% if endTask.update %}
+                                    <time datetime="{{ endTask.update|date("Y-m-d") }}">{{ endTask.update|date("d/m/Y") }}</time>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
