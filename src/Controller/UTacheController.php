@@ -27,7 +27,7 @@ class UTacheController extends AbstractController
             $statusbar['links'][] = ['title' => 'Créer un tâche', 'url' => $this->generateUrl("app_utache_new"), 'target' => false];
         }
 
-        $allTask = $taskRepository->findAll();
+        $allTask = $taskRepository->findBy(['editor' => $this->getUser()]);
 
         $arrayTask = [];
         foreach ($allTask as $task) {
@@ -66,6 +66,7 @@ class UTacheController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $task->setReleaseDate(new \DateTime());
+            $task->setEditor($this->getUser());
 
             $entityManager->persist($task);
             $entityManager->flush();
