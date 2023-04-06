@@ -2,6 +2,10 @@
 
 {% block title %}U-Tâche{% endblock %}
 
+{% block javascripts %}
+    <script src="{{ asset('js/utache_form.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <section id="newTask" class="w-50 m-auto py-5">
         {{ form_start(newTaskForm) }}
@@ -22,50 +26,13 @@
                 {{ form_label(newTaskForm.status) }}
             </div>
 
-            <div class="form-floating mb-4">
-                {{ form_widget(newTaskForm.state, {'attr': {'placeholder': 'Pourcentage d\'avancement', 'class': 'form-control'}}) }}
+            <div class="input-group mb-5">
                 {{ form_label(newTaskForm.state) }}
+                {{ form_widget(newTaskForm.state, {'attr': {'placeholder': 'Pourcentage d\'avancement', 'class': 'form-range range-state'}}) }}
+                <div class="form-text text-percent"><span>0</span>%</div>
             </div>
 
-{#            <fieldset class="row mb-4">#}
-{#                <legend class="col-form-label col-sm-2 pt-0">{{ form_label(registrationForm.gender) }}</legend>#}
-{#                <div class="col-sm-10">#}
-{#                    {% for radioGender in registrationForm.gender %}#}
-{#                        <div class="form-check">#}
-{#                            {{ form_row(radioGender, {'attr': {'class': 'form-check-input'}, 'label_attr': {'class': 'form-check-label'}}) }}#}
-{#                        </div>#}
-{#                    {% endfor %}#}
-{#                </div>#}
-{#            </fieldset>#}
-
-{#            <div class="input-group mb-4">#}
-{#                {{ form_label(registrationForm.birthDate) }}#}
-{#                {{ form_widget(registrationForm.birthDate) }}#}
-{#            </div>#}
-
-{#            <div class="form-floating mb-4">#}
-{#                {{ form_widget(registrationForm.email, {'attr': {'placeholder': 'Adresse e-mail', 'class': 'form-control'}}) }}#}
-{#                {{ form_label(registrationForm.email) }}#}
-{#            </div>#}
-
-{#            {% for password in registrationForm.plainPassword %}#}
-{#                <div class="form-floating mb-4">#}
-{#                    {{ form_widget(password) }}#}
-{#                    {{ form_label(password) }}#}
-{#                </div>#}
-{#            {% endfor %}#}
-
-{#            <div class="input-group mb-4">#}
-{#                {{ form_label(registrationForm.captcha) }}#}
-{#                {{ form_widget(registrationForm.captcha, {'attr': {'placeholder': 'Réponse', 'class': 'form-control'}}) }}#}
-{#            </div>#}
-
-{#            <div class="form-check mb-4">#}
-{#                {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}#}
-{#                {{ form_label(registrationForm.agreeTerms) }}#}
-{#            </div>#}
-
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
         {{ form_end(newTaskForm) }}
     </section>
 {% endblock %}

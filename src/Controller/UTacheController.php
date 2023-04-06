@@ -7,6 +7,7 @@ use App\Form\TaskFormType;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,35 +31,20 @@ class UTacheController extends AbstractController
 
         $arrayTask = [];
         foreach ($allTask as $task) {
-            if ($task->getStatus() == 0) {
-                $arrayTask[0][] = [
-                    'title' => $task->getTitle(),
-                    'state' => $task->getState(),
-                    'release' => $task->getReleaseDate(),
-                    'update' => $task->getUpdateDate(),
-                ];
-            } elseif ($task->getStatus() == 1) {
-                $arrayTask[1][] = [
-                    'title' => $task->getTitle(),
-                    'state' => $task->getState(),
-                    'release' => $task->getReleaseDate(),
-                    'update' => $task->getUpdateDate(),
-                ];
-            } elseif ($task->getStatus() == 2) {
-                $arrayTask[2][] = [
-                    'title' => $task->getTitle(),
-                    'state' => $task->getState(),
-                    'release' => $task->getReleaseDate(),
-                    'update' => $task->getUpdateDate(),
-                ];
-            } elseif ($task->getStatus() == 3) {
-                $arrayTask[3][] = [
-                    'title' => $task->getTitle(),
-                    'state' => $task->getState(),
-                    'release' => $task->getReleaseDate(),
-                    'update' => $task->getUpdateDate(),
-                ];
+
+            for ($i=0; $i<=3; $i++) {
+                if ($task->getStatus() == $i) {
+                    $arrayTask[$i][] = [
+                        'id' => $task->getId(),
+                        'status' => $task->getStatus(),
+                        'title' => $task->getTitle(),
+                        'state' => $task->getState(),
+                        'release' => $task->getReleaseDate(),
+                        'update' => $task->getUpdateDate(),
+                    ];
+                }
             }
+
         }
 
         return $this->render('utache/utache.html.twig', [
@@ -98,5 +84,22 @@ class UTacheController extends AbstractController
             'dataStatusbar' => $statusbar,
             'newTaskForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/u-tache/modifier-statut', name: 'app_utache_modify_status')]
+    public function modifyStatusTask(EntityManagerInterface $entityManager, TaskRepository $taskRepository): RedirectResponse
+    {
+        if ($this->getUser() != null) {
+            $idTask = $_POST['idTask'];
+            $moveStatus = $_POST['moveStatus'];
+
+            $task = $taskRepository->find($idTask);
+            $task->setStatus($moveStatus);
+            $task->setUpdateDate(new \DateTime());
+
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_utache');
     }
 }

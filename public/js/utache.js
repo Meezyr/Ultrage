@@ -88,7 +88,6 @@ $(document).ready(function() {
             $(this).css('cursor', 'grabbing');
 
             onDragTask(event, $(this).parent().attr('id'));
-            console.log(tempPosition)
         },
         stop: function(event, ui) {
             $(this).css('cursor', 'grab');
@@ -98,7 +97,20 @@ $(document).ready(function() {
 
             dragPosition(this, event, $(this).parent().attr('id'));
 
-            //Enregistrer la position
+            var localTask = $(this);
+            var idTask = $(this).data('id');
+            var statusTask = $(this).data('status');
+            var nbStatus = $(this).parent().data('nb');
+
+            if (nbStatus !== statusTask) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/u-tache/modifier-statut',
+                    data: { idTask: idTask, moveStatus: nbStatus }
+                }).done(function() {
+                    localTask.data('status', localTask.parent().data('nb'));
+                });
+            }
         }
     });
 });

@@ -10,74 +10,95 @@
 {% block body %}
     <section id="taskBoard" class="px-4 py-5 h-100">
         <div class="row m-0 h-100 gap-3">
-            <div class="col p-0 border border-warning">
-                <h2>0. A faire</h2>
-                <div id="makeTask" class="w-100 h-100">
-                    {% if tasks[0] is defined %}
-                        {% for makeTask in tasks[0] %}
-                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
-                                <p>{{ makeTask.title|capitalize }}</p>
-                                <p>{{ makeTask.state }} %</p>
-                                <time datetime="{{ makeTask.release|date("Y-m-d") }}">{{ makeTask.release|date("d/m/Y") }}</time>
-                                {% if makeTask.update %}
-                                    <time datetime="{{ makeTask.update|date("Y-m-d") }}">{{ makeTask.update|date("d/m/Y") }}</time>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
+
+            {% for i in 0..3 %}
+                <div class="col p-0 border border-warning">
+                    <h2>{{ i }}</h2>
+                    <div id="{{ i == 0 ? 'makeTask' : i == 1 ? 'waitTask' : i == 2 ? 'progressTask' : i == 3 ? 'endTask' : '' }}" class="w-100 h-100" data-nb="{{ i }}">
+                        {% if tasks[i] is defined %}
+                            {% for task in tasks[i] %}
+                                <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;" data-id="{{ task.id }}" data-status="{{ task.status }}">
+                                    <p>{{ task.title|capitalize }}</p>
+                                    <p>{{ task.state }} %</p>
+                                    <time datetime="{{ task.release|date("Y-m-d") }}">{{ task.release|date("d/m/Y") }}</time>
+                                    {% if task.update %}
+                                        <time datetime="{{ task.update|date("Y-m-d") }}">{{ task.update|date("d/m/Y") }}</time>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
                 </div>
-            </div>
-            <div class="col p-0 border border-warning">
-                <h2>1. En attente</h2>
-                <div id="waitTask" class="w-100 h-100">
-                    {% if tasks[1] is defined %}
-                        {% for waitTask in tasks[1] %}
-                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
-                                <p>{{ waitTask.title|capitalize }}</p>
-                                <p>{{ waitTask.state }} %</p>
-                                <time datetime="{{ waitTask.release|date("Y-m-d") }}">{{ waitTask.release|date("d/m/Y") }}</time>
-                                {% if waitTask.update %}
-                                    <time datetime="{{ waitTask.update|date("Y-m-d") }}">{{ waitTask.update|date("d/m/Y") }}</time>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col p-0 border border-warning">
-                <h2>2. En cours</h2>
-                <div id="progressTask" class="w-100 h-100">
-                    {% if tasks[2] is defined %}
-                        {% for progressTask in tasks[2] %}
-                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
-                                <p>{{ progressTask.title|capitalize }}</p>
-                                <p>{{ progressTask.state }} %</p>
-                                <time datetime="{{ progressTask.release|date("Y-m-d") }}">{{ progressTask.release|date("d/m/Y") }}</time>
-                                {% if progressTask.update %}
-                                    <time datetime="{{ progressTask.update|date("Y-m-d") }}">{{ progressTask.update|date("d/m/Y") }}</time>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col p-0 border border-warning">
-                <h2>3. Terminé</h2>
-                <div id="endTask" class="w-100 h-100">
-                    {% if tasks[3] is defined %}
-                        {% for endTask in tasks[3] %}
-                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;">
-                                <p>{{ endTask.title|capitalize }}</p>
-                                <p>{{ endTask.state }} %</p>
-                                <time datetime="{{ endTask.release|date("Y-m-d") }}">{{ endTask.release|date("d/m/Y") }}</time>
-                                {% if endTask.update %}
-                                    <time datetime="{{ endTask.update|date("Y-m-d") }}">{{ endTask.update|date("d/m/Y") }}</time>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
+            {% endfor %}
+
+{#            <div class="col p-0 border border-warning">#}
+{#                <h2>0. A faire</h2>#}
+{#                <div id="makeTask" class="w-100 h-100" data-nb="0">#}
+{#                    {% if tasks[0] is defined %}#}
+{#                        {% for makeTask in tasks[0] %}#}
+{#                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;" data-id="{{ makeTask.id }}" data-status="{{ makeTask.status }}">#}
+{#                                <p>{{ makeTask.title|capitalize }}</p>#}
+{#                                <p>{{ makeTask.state }} %</p>#}
+{#                                <time datetime="{{ makeTask.release|date("Y-m-d") }}">{{ makeTask.release|date("d/m/Y") }}</time>#}
+{#                                {% if makeTask.update %}#}
+{#                                    <time datetime="{{ makeTask.update|date("Y-m-d") }}">{{ makeTask.update|date("d/m/Y") }}</time>#}
+{#                                {% endif %}#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col p-0 border border-warning">#}
+{#                <h2>1. En attente</h2>#}
+{#                <div id="waitTask" class="w-100 h-100" data-nb="1">#}
+{#                    {% if tasks[1] is defined %}#}
+{#                        {% for waitTask in tasks[1] %}#}
+{#                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;" data-id="{{ waitTask.id }}" data-status="{{ waitTask.status }}">#}
+{#                                <p>{{ waitTask.title|capitalize }}</p>#}
+{#                                <p>{{ waitTask.state }} %</p>#}
+{#                                <time datetime="{{ waitTask.release|date("Y-m-d") }}">{{ waitTask.release|date("d/m/Y") }}</time>#}
+{#                                {% if waitTask.update %}#}
+{#                                    <time datetime="{{ waitTask.update|date("Y-m-d") }}">{{ waitTask.update|date("d/m/Y") }}</time>#}
+{#                                {% endif %}#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col p-0 border border-warning">#}
+{#                <h2>2. En cours</h2>#}
+{#                <div id="progressTask" class="w-100 h-100" data-nb="2">#}
+{#                    {% if tasks[2] is defined %}#}
+{#                        {% for progressTask in tasks[2] %}#}
+{#                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;" data-id="{{ progressTask.id }}" data-status="{{ progressTask.status }}">#}
+{#                                <p>{{ progressTask.title|capitalize }}</p>#}
+{#                                <p>{{ progressTask.state }} %</p>#}
+{#                                <time datetime="{{ progressTask.release|date("Y-m-d") }}">{{ progressTask.release|date("d/m/Y") }}</time>#}
+{#                                {% if progressTask.update %}#}
+{#                                    <time datetime="{{ progressTask.update|date("Y-m-d") }}">{{ progressTask.update|date("d/m/Y") }}</time>#}
+{#                                {% endif %}#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="col p-0 border border-warning">#}
+{#                <h2>3. Terminé</h2>#}
+{#                <div id="endTask" class="w-100 h-100" data-nb="3">#}
+{#                    {% if tasks[3] is defined %}#}
+{#                        {% for endTask in tasks[3] %}#}
+{#                            <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;" data-id="{{ endTask.id }}" data-status="{{ endTask.status }}">#}
+{#                                <p>{{ endTask.title|capitalize }}</p>#}
+{#                                <p>{{ endTask.state }} %</p>#}
+{#                                <time datetime="{{ endTask.release|date("Y-m-d") }}">{{ endTask.release|date("d/m/Y") }}</time>#}
+{#                                {% if endTask.update %}#}
+{#                                    <time datetime="{{ endTask.update|date("Y-m-d") }}">{{ endTask.update|date("d/m/Y") }}</time>#}
+{#                                {% endif %}#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    {% endif %}#}
+{#                </div>#}
+{#            </div>#}
         </div>
     </section>
 {% endblock %}
