@@ -10893,4 +10893,29 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
   margin: 0 20px 0 0;
 }
 
+.cols-task {
+  min-height: 100%;
+}
+.cols-task .dragTask {
+  cursor: grab;
+}
+.cols-task .dragTask .state-task {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-color: rgba(13, 202, 240, 0.4);
+}
+.cols-task .dragTask .state-task div {
+  content: "";
+  height: 100%;
+  background-color: #0dcaf0;
+}
+.cols-task .temp-task {
+  height: 118px;
+  opacity: 0.5;
+}
+
 /*# sourceMappingURL=style.css.map */

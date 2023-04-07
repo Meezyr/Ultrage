@@ -37,7 +37,7 @@ class UTacheController extends AbstractController
                     $arrayTask[$i][] = [
                         'id' => $task->getId(),
                         'status' => $task->getStatus(),
-                        'title' => $task->getTitle(),
+                        'title' => (strlen($task->getTitle()) > 26) ? substr($task->getTitle(),0,23).'...' : $task->getTitle(),
                         'state' => $task->getState(),
                         'release' => $task->getReleaseDate(),
                         'update' => $task->getUpdateDate(),

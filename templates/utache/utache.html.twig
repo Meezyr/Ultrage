@@ -3,27 +3,54 @@
 {% block title %}U-Tâche{% endblock %}
 
 {% block javascripts %}
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
+            integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/utache.js') }}"></script>
 {% endblock %}
 
 {% block body %}
     <section id="taskBoard" class="px-4 py-5 h-100">
-        <div class="row m-0 h-100 gap-3">
+        <div class="row m-0 cols-task gap-3">
 
             {% for i in 0..3 %}
-                <div class="col p-0 border border-warning">
-                    <h2>{{ i }}</h2>
-                    <div id="{{ i == 0 ? 'makeTask' : i == 1 ? 'waitTask' : i == 2 ? 'progressTask' : i == 3 ? 'endTask' : '' }}" class="w-100 h-100" data-nb="{{ i }}">
+                <div class="col overflow-y-auto overflow-x-visible p-0 rounded-3 border border-3 border-dark">
+                    <h2 class="m-0 text-white bg-dark text-center pb-2 pt-1">
+                        {{ i == 0 ? 'A faire' : i == 1 ? 'En attente' : i == 2 ? 'En cours' : i == 3 ? 'Terminé' : '' }}
+                    </h2>
+                    <div id="{{ i == 0 ? 'makeTask' : i == 1 ? 'waitTask' : i == 2 ? 'progressTask' : i == 3 ? 'endTask' : '' }}"
+                         class="w-100 h-100 p-2" data-nb="{{ i }}">
                         {% if tasks[i] is defined %}
                             {% for task in tasks[i] %}
-                                <div class="dragTask w-100 border border-danger bg-light" style="cursor: grab;" data-id="{{ task.id }}" data-status="{{ task.status }}">
-                                    <p>{{ task.title|capitalize }}</p>
-                                    <p>{{ task.state }} %</p>
-                                    <time datetime="{{ task.release|date("Y-m-d") }}">{{ task.release|date("d/m/Y") }}</time>
+                                <div class="dragTask w-100 px-2 pt-2 pb-4 mb-3 position-relative text-white bg-primary bg-gradient rounded-2 overflow-hidden"
+                                     data-id="{{ task.id }}" data-status="{{ task.status }}">
+                                    <p class="fs-5 mb-2">{{ task.title|capitalize }}</p>
+
+                                    <div>
+                                        <i class="bi bi-clock me-1"></i>
+                                        <time datetime="{{ task.release|date("Y-m-d") }}"
+                                              class="fw-light">{{ task.release|date("d/m/Y") }}</time>
+                                    </div>
+
                                     {% if task.update %}
-                                        <time datetime="{{ task.update|date("Y-m-d") }}">{{ task.update|date("d/m/Y") }}</time>
+                                        <div>
+                                            <i class="bi bi-wrench-adjustable-circle me-1"></i>
+                                            <time datetime="{{ task.update|date("Y-m-d") }}"
+                                                  class="fw-light">{{ task.update|date("d/m/Y") }}</time>
+                                        </div>
                                     {% endif %}
+
+                                    <div class="btn-group-vertical position-absolute top-0 end-0" role="group" aria-label="Boutons d'action de la tâche">
+                                        <button type="button" class="comment-task btn btn-success px-2 py-1">
+                                            <i class="bi bi-chat-square-text"></i>
+                                        </button>
+                                        <button type="button" class="edit-task btn btn-success px-2 py-1">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="state-task">
+                                        <div style="width: {{ task.state }}%"></div>
+                                    </div>
                                 </div>
                             {% endfor %}
                         {% endif %}

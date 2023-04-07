@@ -36,10 +36,10 @@ $(document).ready(function() {
 
     function onDragTask(event, localTask) {
         if (tempPosition !== 'makeTask' && localTask !== 'makeTask' && event.pageX >= leftPosition(makeTask) && event.pageX <= rightPosition(makeTask)) {
-            $('<div class="tempTask w-100 bg-secondary" style="height: 66px;">').appendTo('#makeTask');
+            $('<div class="temp-task w-100 bg-secondary bg-gradient rounded-2">').appendTo('#makeTask');
             tempPosition = 'makeTask';
         } else if (event.pageX <= leftPosition(makeTask) || event.pageX >= rightPosition(makeTask)) {
-            $('#makeTask .tempTask').remove();
+            $('#makeTask .temp-task').remove();
 
             if (tempPosition === 'makeTask') {
                 tempPosition = null;
@@ -47,10 +47,10 @@ $(document).ready(function() {
         }
 
         if (tempPosition !== 'waitTask' && localTask !== 'waitTask' && event.pageX >= leftPosition(waitTask) && event.pageX <= rightPosition(waitTask)) {
-            $('<div class="tempTask w-100 bg-secondary" style="height: 66px;">').appendTo('#waitTask');
+            $('<div class="temp-task w-100 bg-secondary bg-gradient rounded-2">').appendTo('#waitTask');
             tempPosition = 'waitTask';
         } else if (event.pageX <= leftPosition(waitTask) || event.pageX >= rightPosition(waitTask)) {
-            $('#waitTask .tempTask').remove();
+            $('#waitTask .temp-task').remove();
 
             if (tempPosition === 'waitTask') {
                 tempPosition = null;
@@ -58,10 +58,10 @@ $(document).ready(function() {
         }
 
         if (tempPosition !== 'progressTask' && localTask !== 'progressTask' && event.pageX >= leftPosition(progressTask) && event.pageX <= rightPosition(progressTask)) {
-            $('<div class="tempTask w-100 bg-secondary" style="height: 66px;">').appendTo('#progressTask');
+            $('<div class="temp-task w-100 bg-secondary bg-gradient rounded-2">').appendTo('#progressTask');
             tempPosition = 'progressTask';
         } else if (event.pageX <= leftPosition(progressTask) || event.pageX >= rightPosition(progressTask)) {
-            $('#progressTask .tempTask').remove();
+            $('#progressTask .temp-task').remove();
 
             if (tempPosition === 'progressTask') {
                 tempPosition = null;
@@ -69,10 +69,10 @@ $(document).ready(function() {
         }
 
         if (tempPosition !== 'endTask' && localTask !== 'endTask' && event.pageX >= leftPosition(endTask) && event.pageX <= rightPosition(endTask)) {
-            $('<div class="tempTask w-100 bg-secondary" style="height: 66px;">').appendTo('#endTask');
+            $('<div class="temp-task w-100 bg-secondary bg-gradient rounded-2">').appendTo('#endTask');
             tempPosition = 'endTask';
         } else if (event.pageX <= leftPosition(endTask) || event.pageX >= rightPosition(endTask)) {
-            $('#endTask .tempTask').remove();
+            $('#endTask .temp-task').remove();
 
             if (tempPosition === 'endTask') {
                 tempPosition = null;
@@ -85,13 +85,13 @@ $(document).ready(function() {
             $(this).css('cursor', 'grabbing').css('z-index', '10');
         },
         drag: function(event, ui) {
-            $(this).css('cursor', 'grabbing');
+            $(this).css('cursor', 'grabbing').css('transform', 'rotate(-10deg)');
 
             onDragTask(event, $(this).parent().attr('id'));
         },
         stop: function(event, ui) {
-            $(this).css('cursor', 'grab');
-            $('.tempTask').remove();
+            $(this).css('cursor', 'grab').css('z-index', '0').css('transform', 'rotate(0deg)');
+            $('.temp-task').remove();
 
             tempPosition = null;
 

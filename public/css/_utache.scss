@@ -1,0 +1,28 @@
+.cols-task {
+    min-height: 100%;
+
+    .dragTask {
+        cursor: grab;
+
+        .state-task {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: #0DCAF066;
+
+            div {
+                content: "";
+                height: 100%;
+                background-color: $info;
+            }
+        }
+    }
+
+    .temp-task {
+        height: 118px;
+        opacity: 0.5;
+    }
+}
