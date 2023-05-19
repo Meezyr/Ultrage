@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Form\ProfileFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class ProfileController extends AbstractController
 {
     #[Route('/profil', name: 'app_profile')]
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     public function index(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, UserRepository $userRepository): Response
     {
         $user = $userRepository->find($this->getUser());
@@ -46,10 +48,7 @@ class ProfileController extends AbstractController
         }
 
         $statusbar = [
-            'links' => [
-                ['title' => 'test01', 'url' => 'https://google.com/', 'target' => true],
-                ['title' => 'test02', 'url' => '/', 'target' => false],
-            ],
+            'links' => [],
         ];
 
         return $this->render('profile/profile.html.twig', [

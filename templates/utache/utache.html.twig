@@ -28,24 +28,26 @@
                                     <div>
                                         <i class="bi bi-clock me-1"></i>
                                         <time datetime="{{ task.release|date("Y-m-d") }}"
-                                              class="fw-light">{{ task.release|date("d/m/Y") }}</time>
+                                              class="fw-light">{{ task.release|format_datetime('long', 'short', locale='fr') }}</time>
                                     </div>
 
                                     {% if task.update %}
                                         <div>
                                             <i class="bi bi-wrench-adjustable-circle me-1"></i>
                                             <time datetime="{{ task.update|date("Y-m-d") }}"
-                                                  class="fw-light">{{ task.update|date("d/m/Y") }}</time>
+                                                  class="fw-light">{{ task.update|format_datetime('long', 'short', locale='fr') }}</time>
                                         </div>
                                     {% endif %}
 
-                                    <div class="btn-group-vertical position-absolute top-0 end-0" role="group" aria-label="Boutons d'action de la tâche">
-                                        <button type="button" class="comment-task btn btn-success px-2 py-1">
+                                    <div class="btn-group-vertical position-absolute top-0 end-0" role="group"
+                                         aria-label="Boutons d'action de la tâche">
+                                        <button type="button" class="comment-task btn btn-success px-2 py-1"
+                                                data-bs-toggle="modal" data-bs-target="#commentModal" disabled>
                                             <i class="bi bi-chat-square-text"></i>
                                         </button>
-                                        <button type="button" class="edit-task btn btn-success px-2 py-1">
+                                        <a class="edit-task btn btn-success px-2 py-1" href="{{ path('app_utache_modify', {'id': task.id}) }}">
                                             <i class="bi bi-pencil-square"></i>
-                                        </button>
+                                        </a>
                                     </div>
 
                                     <div class="state-task">
@@ -60,4 +62,30 @@
 
         </div>
     </section>
+
+    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="commentModalLabel">Commentaires de la tâche</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12" id="listComment">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-12" id="addComment">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

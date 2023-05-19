@@ -7,9 +7,11 @@
 {% endblock %}
 
 {% block body %}
+    {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
     <section id="newTask" class="w-50 m-auto py-5">
         {{ form_start(newTaskForm) }}
-            <h1 class="h3 mb-5 fw-normal">Saisissez les informations pour créer une nouvelle tâche</h1>
+            <h1 class="h3 mb-5 fw-normal">Saisissez les informations pour {{ currentPath == '/u-tache/nouvelle-tache' ? 'créer une nouvelle' : 'modifier la' }} tâche</h1>
 
             <div class="form-floating mb-4">
                 {{ form_widget(newTaskForm.title, {'attr': {'placeholder': 'Titre', 'class': 'form-control', 'autofocus': 'autofocus'}}) }}
@@ -32,7 +34,7 @@
                 <div class="form-text text-percent"><span>0</span>%</div>
             </div>
 
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
         {{ form_end(newTaskForm) }}
     </section>
 {% endblock %}
