@@ -10918,4 +10918,8 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
   opacity: 0.5;
 }
 
+.error-page img {
+  width: 100px;
+}
+
 /*# sourceMappingURL=style.css.map */
