@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var makeTask = $("#makeTask");
     var waitTask = $("#waitTask");
     var progressTask = $("#progressTask");
@@ -81,15 +81,15 @@ $(document).ready(function() {
     }
 
     $(".dragTask").draggable({
-        start: function(event, ui) {
+        start: function (event, ui) {
             $(this).css('cursor', 'grabbing').css('z-index', '10');
         },
-        drag: function(event, ui) {
+        drag: function (event, ui) {
             $(this).css('cursor', 'grabbing').css('transform', 'rotate(-10deg)');
 
             onDragTask(event, $(this).parent().attr('id'));
         },
-        stop: function(event, ui) {
+        stop: function (event, ui) {
             $(this).css('cursor', 'grab').css('z-index', '0').css('transform', 'rotate(0deg)');
             $('.temp-task').remove();
 
@@ -106,11 +106,67 @@ $(document).ready(function() {
                 $.ajax({
                     type: 'POST',
                     url: '/u-tache/modifier-statut',
-                    data: { idTask: idTask, moveStatus: nbStatus }
-                }).done(function() {
+                    data: {idTask: idTask, moveStatus: nbStatus}
+                }).done(function () {
                     localTask.data('status', localTask.parent().data('nb'));
                 });
             }
+        }
+    });
+
+    //Comment
+    function getAllComment(id) {
+        $('#listComment .comment').remove();
+
+        $('#listComment').append('<div class="container-load my-4"><span class="loader"></span></div>');
+
+        $.ajax({
+            url: '/u-tache/commentaires',
+            dataType: "json",
+            type: "POST",
+            data: {id: id},
+            success: function (data) {
+                $('#listComment .container-load').remove();
+
+                data.forEach((item, index) => {
+                    $('#listComment').append(
+                        '<div class="comment mb-3 pb-1 border-bottom border-dark-subtle">' +
+                        '<p class="m-0">'+item.text+'</p>' +
+                        '<div title="'+item.date+'">' +
+                        '<i class="bi bi-calendar-date"></i>' +
+                        '</div>' +
+                        '</div>'
+                    );
+                });
+            }
+        });
+    }
+
+    $('.comment-task').click(function () {
+        const idTask = $(this).data('id-task');
+
+        $('#commentModal').data('id', idTask)
+
+        getAllComment(idTask);
+    });
+
+    $('#addComment .send-comment').click(function () {
+        const idTask = $('#commentModal').data('id');
+        const commentTask = $('#addComment textarea').val();
+
+        if (commentTask !== '') {
+            $.ajax({
+                url: '/u-tache/ajouter-commentaire',
+                dataType: "json",
+                type: "POST",
+                data: {id: idTask, comment: commentTask},
+                success: function (data) {
+                    if (data != null) {
+                        $('#addComment textarea').val('');
+                        getAllComment(idTask);
+                    }
+                }
+            });
         }
     });
 });
