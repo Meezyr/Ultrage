@@ -3,6 +3,46 @@
 {% block body %}
 
     <div class="px-4 py-5 h-100 home">
+        <section class="container-fluid p-0 vh-100 banner-home">
+            <div class="row m-0">
+                <div class="col-6 d-flex flex-column justify-content-between">
+                    <h1 class="display-2 text-uppercase fw-bolder text-center">Ultrage</h1>
+
+                    <p class="h3 text-secondary mt-5 text-center fw-medium">
+                        Ultrage est un outil polyvalent pour la création web pour l'amélioration de la productivité et
+                        de la créativité des professionnels et amateurs du web.
+                    </p>
+
+                    <p class="text-dark fs-5 fw-light mt-4 px-2">
+                        Ultrage réunit une multitude de fonctionnalités essentielles pour le web, avec son ensemble
+                        d'outils intégrés, telles qu'un gestionnaire de couleurs, un tableau des tâches, une
+                        bibliothèque de ressources et bien plus encore. De plus, Ultrage en intégrant ces différents
+                        outils, s'impose comme un compagnon indispensable pour les professionnels et amateurs du web,
+                        offrant une suite complète d'outils pour améliorer leur productivité et leur créativité.
+                    </p>
+
+                    <div class="d-flex flex-row justify-content-evenly mt-5">
+                        {% if app.user %}
+                            <a class="btn btn-outline-dark btn-lg" href="{{ path('app_profile') }}">
+                                <i class="bi bi-person"></i> Voir ma page profil
+                            </a>
+                        {% else %}
+                            <a class="btn btn-outline-dark btn-lg" href="{{ path('app_login') }}">
+                                <i class="bi bi-person"></i> S'identifier
+                            </a>
+                            <a class="btn btn-outline-dark btn-lg" href="{{ path('app_register') }}">
+                                <i class="bi bi-person-plus"></i> S'inscrire
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-6">
+                    <img src="{{ asset('/img/svg/control_panel.svg') }}" alt="Illustration tableau de bord">
+                </div>
+            </div>
+            <div class='icon-scroll'></div>
+        </section>
+
         <section class="container-fluid p-0 mt-5 color-teaser">
             <div class="row m-0">
                 <div class="col-12">
@@ -33,7 +73,8 @@
                                     <strong>Mots clés : </strong>
                                     {{ color.keyword|map(k => "#{k|capitalize}")|join(', ') }}
                                 </p>
-                                <a href="{{ path('app_ucouleur', {'code': color.colorCode}) }}" class="btn btn-outline-secondary stretched-link w-100">
+                                <a href="{{ path('app_ucouleur', {'code': color.colorCode}) }}"
+                                   class="btn btn-outline-secondary stretched-link w-100">
                                     <i class="bi bi-palette"></i> Voir la couleur
                                 </a>
                             </div>
@@ -42,6 +83,7 @@
                 {% endfor %}
             </div>
         </section>
+
         <section class="container-fluid p-0 mt-5 tools-list">
             <div class="row m-0">
                 <div class="col-12">
