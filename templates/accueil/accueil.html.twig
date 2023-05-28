@@ -2,14 +2,77 @@
 
 {% block body %}
 
-    <section class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h1>Hello world !!!</h1>
-                <p>Number : <i>{{ number }}</i></p>
-                <a href="{{ path('app_ucouleur') }}">U-Couleur</a>
+    <div class="px-4 py-5 h-100 home">
+        <section class="container-fluid p-0 mt-5 color-teaser">
+            <div class="row m-0">
+                <div class="col-12">
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <h2>Couleurs les plus récentes</h2>
+                        <a href="{{ path('app_ucouleur') }}" class="btn btn-outline-primary">
+                            Créer vos couleurs <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+            <div class="row my-3 mx-0">
+                {% for color in colors %}
+                    <div class="col-3">
+                        <div class="card card-color">
+                            <div class="card-img-top" title="Le code couleur est {{ color.colorCode }}"
+                                 style="background: {{ color.colorCode }}"></div>
+                            <div class="card-body">
+                                <p class="card-text zone-date">
+                                    <span class="badge rounded-pill text-bg-info">{{ color.creationDate|format_date('long', locale='fr') }}</span>
+                                </p>
+                                <h5 class="card-title pb-2">
+                                    <span class="badge bg-dark">{{ color.colorCode|upper }}</span>
+                                    Créer par
+                                    {{ color.userAuthor.pseudo ? color.userAuthor.pseudo|capitalize : color.userAuthor.firstName|capitalize }}
+                                </h5>
+                                <p class="card-text">
+                                    <strong>Mots clés : </strong>
+                                    {{ color.keyword|map(k => "#{k|capitalize}")|join(', ') }}
+                                </p>
+                                <a href="{{ path('app_ucouleur', {'code': color.colorCode}) }}" class="btn btn-outline-secondary stretched-link w-100">
+                                    <i class="bi bi-palette"></i> Voir la couleur
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+        <section class="container-fluid p-0 mt-5 tools-list">
+            <div class="row m-0">
+                <div class="col-12">
+                    <h2>Liste des outils</h2>
+                </div>
+            </div>
+            <div class="row mt-3 mx-0">
+                <div class="col-3">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">U-Couleur</h5>
+                            <p class="card-text">Outil de gestion et création de couleurs.</p>
+                            <a href="{{ path('app_ucouleur') }}" class="btn btn-primary stretched-link">
+                                Voir l'outil <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">U-Tâche</h5>
+                            <p class="card-text">Outil de gestion et de création de tâches d'un planning.</p>
+                            <a href="{{ path('app_utache') }}" class="btn btn-primary stretched-link">
+                                Voir l'outil <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
 {% endblock %}

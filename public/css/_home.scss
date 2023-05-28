@@ -1,0 +1,22 @@
+.home {
+  .color-teaser {
+    .card-color {
+      .card-img-top {
+        height: 50px;
+      }
+      .zone-date {
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+      }
+    }
+  }
+
+  .tools-list {
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+}

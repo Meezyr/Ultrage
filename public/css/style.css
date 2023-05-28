@@ -10844,6 +10844,20 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
   cursor: pointer;
 }
 
+.home .color-teaser .card-color .card-img-top {
+  height: 50px;
+}
+.home .color-teaser .card-color .zone-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+.home .tools-list .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .img-avatar-profile {
   width: 200px;
   object-fit: cover;
