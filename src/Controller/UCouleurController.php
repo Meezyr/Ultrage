@@ -13,8 +13,8 @@ use App\Repository\ColorRepository;
 
 class UCouleurController extends AbstractController
 {
-    #[Route('/u-couleur', name: 'app_ucouleur')]
-    public function index(ManagerRegistry $doctrine, UserRepository $userRepository, ColorRepository $colorRepository): Response
+    #[Route('/u-couleur/{code?null}', name: 'app_ucouleur')]
+    public function index(string $code,ManagerRegistry $doctrine, UserRepository $userRepository, ColorRepository $colorRepository): Response
     {
         $couleurs = [];
 
@@ -36,6 +36,7 @@ class UCouleurController extends AbstractController
             'couleurs' => $couleurs,
             'users' => $users,
             'dataStatusbar' => $statusbar,
+            'code' => $code,
         ]);
     }
 

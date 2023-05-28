@@ -20,13 +20,15 @@ $(document).ready(function() {
         actualisationColor();
     }
 
+    //Set défaut couleur
+    var colorDefault = $('#picker').data('color');
 
     //Set colorpicker
     var colorPicker = new iro.ColorPicker("#picker", {
         // Set the size of the color picker
         width: 350,
-        // Set the initial color to pure red
-        color: "#ffffff",
+        // Set the initial color
+        color: colorDefault ? colorDefault : "#ffffff",
         borderWidth: 5,
         borderColor: "#ffffff",
         layout: [

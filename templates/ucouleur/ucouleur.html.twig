@@ -12,7 +12,7 @@
     <section class="px-4 py-5 section-grid-col-2 gx-4">
         <div class="section-col-1 select-color">
             <div class="picker-color mx-auto mb-5">
-                <div id="picker" class="bg-dark bg-gradient shadow rounded-5 px-5 py-4 mb-5"></div>
+                <div id="picker" class="bg-dark bg-gradient shadow rounded-5 px-5 py-4 mb-5" data-color="{{ code ? code : null }}"></div>
 
                 <div id="colorFond" class="border border-5 border-white rounded-4 overflow-hidden shadow"
                      style="background-image: url('{{ asset('img/fond_alpha.png') }}');">
