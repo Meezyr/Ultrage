@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    var makeTask = $("#makeTask");
-    var waitTask = $("#waitTask");
-    var progressTask = $("#progressTask");
-    var endTask = $("#endTask");
+    let makeTask = $("#makeTask");
+    let waitTask = $("#waitTask");
+    let progressTask = $("#progressTask");
+    let endTask = $("#endTask");
 
-    var tempPosition = null;
+    let tempPosition = null;
 
     function leftPosition(colon) {
         return colon.offset().left;
@@ -97,10 +97,10 @@ $(document).ready(function () {
 
             dragPosition(this, event, $(this).parent().attr('id'));
 
-            var localTask = $(this);
-            var idTask = $(this).data('id');
-            var statusTask = $(this).data('status');
-            var nbStatus = $(this).parent().data('nb');
+            let localTask = $(this);
+            let idTask = $(this).data('id');
+            let statusTask = $(this).data('status');
+            let nbStatus = $(this).parent().data('nb');
 
             if (nbStatus !== statusTask) {
                 $.ajax({

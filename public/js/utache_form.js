@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    var textPercent = $('.text-percent span');
-    var rangePercent = $('.range-state');
+    let textPercent = $('.text-percent span');
+    let rangePercent = $('.range-state');
 
     textPercent.html(rangePercent.val());
 

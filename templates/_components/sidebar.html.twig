@@ -31,6 +31,16 @@
                             U-Tâche
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ path('app_umotdepasse') }}"
+                           class="nav-link {{ currentPath == path('app_umotdepasse') ? 'active' : 'text-white' }}"
+                           title="Accèder à U-Mot de passe"
+                                {{ currentPath == path('app_umotdepasse') ? 'aria-current="page"' }}
+                        >
+                            <i class="bi bi-lock pe-none me-2"></i>
+                            U-Mot de passe
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <hr>
