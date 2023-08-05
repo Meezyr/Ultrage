@@ -13,6 +13,13 @@ $(document).ready(function () {
 
     let inputPassword = $('#password');
     let copyPassword = $('#copyPassword');
+    let lengthPassword = $('#lengthPassword');
+
+    inputPassword.val(generateRandomString(15));
+
+    lengthPassword.on("change", function(event) {
+        inputPassword.val(generateRandomString(event.currentTarget.value));
+    });
 
     $('#buttonPassword').click(function () {
         let lengthMDP = $('#lengthPassword').val();
