@@ -64,11 +64,13 @@
                                 <p class="card-text zone-date">
                                     <span class="badge rounded-pill text-bg-info">{{ color.creationDate|format_date('long', locale='fr') }}</span>
                                 </p>
-                                <h5 class="card-title pb-2">
-                                    <span class="badge bg-dark">{{ color.colorCode|upper }}</span>
-                                    Créer par
-                                    {{ color.userAuthor.pseudo ? color.userAuthor.pseudo|capitalize : color.userAuthor.firstName|capitalize }}
-                                </h5>
+                                {% if color.userAuthor %}
+                                    <h5 class="card-title pb-2">
+                                        <span class="badge bg-dark">{{ color.colorCode|upper }}</span>
+                                        Créer par
+                                        {{ color.userAuthor.pseudo ? color.userAuthor.pseudo|capitalize : color.userAuthor.firstName|capitalize }}
+                                    </h5>
+                                {% endif %}
                                 <p class="card-text">
                                     <strong>Mots clés : </strong>
                                     {{ color.keyword|map(k => "#{k|capitalize}")|join(', ') }}
@@ -108,6 +110,17 @@
                             <h5 class="card-title">U-Tâche</h5>
                             <p class="card-text">Outil de gestion et de création de tâches d'un planning.</p>
                             <a href="{{ path('app_utache') }}" class="btn btn-primary stretched-link">
+                                Voir l'outil <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">U-Mot de passe</h5>
+                            <p class="card-text">Outil de génération aléatoire de mots de passe.</p>
+                            <a href="{{ path('app_umotdepasse') }}" class="btn btn-primary stretched-link">
                                 Voir l'outil <i class="bi bi-arrow-right"></i>
                             </a>
                         </div>
