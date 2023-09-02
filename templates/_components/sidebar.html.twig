@@ -41,6 +41,16 @@
                             U-Mot de passe
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ path('app_udocumentation') }}"
+                           class="nav-link {{ currentPath == path('app_udocumentation') or currentPath == path('app_udocumentation_new') ? 'active' : 'text-white' }}"
+                           title="Accèder à U-Documentation"
+                                {{ currentPath == path('app_udocumentation') or currentPath == path('app_udocumentation_new') ? 'aria-current="page"' }}
+                        >
+                            <i class="bi bi-folder pe-none me-2"></i>
+                            U-Documentation
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <hr>
