@@ -2,20 +2,13 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DocumentationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DocumentationRepository::class)]
-#[ApiResource(
-    collectionOperations: [
-        'get',
-    ],
-    itemOperations: [
-        'get',
-    ],
-)]
 class Documentation
 {
     #[ORM\Id]
@@ -24,64 +17,110 @@ class Documentation
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
-    private ?string $name = null;
+    private ?string $title = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\Column(length: 180, nullable: true)]
+    private ?string $excerpt = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+    private ?string $text = null;
 
-    #[ORM\Column(length: 150)]
-    private ?string $author = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $release_date = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $update_date = null;
+
+    #[ORM\Column]
+    private ?bool $publish = null;
+
+    #[ORM\ManyToOne(inversedBy: 'documentations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getExcerpt(): ?string
     {
-        return $this->date;
+        return $this->excerpt;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setExcerpt(?string $excerpt): self
     {
-        $this->date = $date;
+        $this->excerpt = $excerpt;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getText(): ?string
     {
-        return $this->description;
+        return $this->text;
     }
 
-    public function setDescription(string $description): self
+    public function setText(string $text): self
     {
-        $this->description = $description;
+        $this->text = $text;
 
         return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getReleaseDate(): ?\DateTimeInterface
+    {
+        return $this->release_date;
+    }
+
+    public function setReleaseDate(\DateTimeInterface $release_date): self
+    {
+        $this->release_date = $release_date;
+
+        return $this;
+    }
+
+    public function getUpdateDate(): ?\DateTimeInterface
+    {
+        return $this->update_date;
+    }
+
+    public function setUpdateDate(?\DateTimeInterface $update_date): self
+    {
+        $this->update_date = $update_date;
+
+        return $this;
+    }
+
+    public function isPublish(): ?bool
+    {
+        return $this->publish;
+    }
+
+    public function setPublish(bool $publish): self
+    {
+        $this->publish = $publish;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
     {
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    public function setAuthor(?User $author): self
     {
         $this->author = $author;
 

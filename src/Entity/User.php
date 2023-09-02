@@ -89,9 +89,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'editor', targetEntity: Task::class)]
     private Collection $tasks;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Documentation::class)]
+    private Collection $documentations;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->documentations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -308,6 +312,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($task->getEditor() === $this) {
                 $task->setEditor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Documentation>
+     */
+    public function getDocumentations(): Collection
+    {
+        return $this->documentations;
+    }
+
+    public function addDocumentation(Documentation $documentation): self
+    {
+        if (!$this->documentations->contains($documentation)) {
+            $this->documentations->add($documentation);
+            $documentation->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocumentation(Documentation $documentation): self
+    {
+        if ($this->documentations->removeElement($documentation)) {
+            // set the owning side to null (unless already changed)
+            if ($documentation->getAuthor() === $this) {
+                $documentation->setAuthor(null);
             }
         }
 
