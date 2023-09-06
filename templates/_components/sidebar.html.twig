@@ -9,49 +9,7 @@
             </a>
             <hr>
             <nav class="mb-auto">
-                {# Voir pour mettre le menu dans un autre fichier et le rendre automatique #}
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a href="{{ path('app_ucouleur') }}"
-                           class="nav-link {{ (currentPath == path('app_ucouleur')) ? 'active' : 'text-white' }}"
-                           title="Accèder à U-Couleur"
-                           {{ currentPath == path('app_ucouleur') ? 'aria-current="page"' }}
-                        >
-                            <i class="bi bi-palette pe-none me-2"></i>
-                            U-Couleur
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('app_utache') }}"
-                           class="nav-link {{ currentPath == path('app_utache') or currentPath == path('app_utache_new') ? 'active' : 'text-white' }}"
-                           title="Accèder à U-Tâche"
-                           {{ currentPath == path('app_utache') or currentPath == path('app_utache_new') ? 'aria-current="page"' }}
-                        >
-                            <i class="bi bi-journal-check pe-none me-2"></i>
-                            U-Tâche
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('app_umotdepasse') }}"
-                           class="nav-link {{ currentPath == path('app_umotdepasse') ? 'active' : 'text-white' }}"
-                           title="Accèder à U-Mot de passe"
-                                {{ currentPath == path('app_umotdepasse') ? 'aria-current="page"' }}
-                        >
-                            <i class="bi bi-lock pe-none me-2"></i>
-                            U-Mot de passe
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('app_udocumentation') }}"
-                           class="nav-link {{ currentPath == path('app_udocumentation') or currentPath == path('app_udocumentation_new') ? 'active' : 'text-white' }}"
-                           title="Accèder à U-Documentation"
-                                {{ currentPath == path('app_udocumentation') or currentPath == path('app_udocumentation_new') ? 'aria-current="page"' }}
-                        >
-                            <i class="bi bi-folder pe-none me-2"></i>
-                            U-Documentation
-                        </a>
-                    </li>
-                </ul>
+                {{ block("menu", "_components/menu.html.twig") }}
             </nav>
             <hr>
             {% if app.user %}

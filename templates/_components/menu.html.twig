@@ -1,0 +1,23 @@
+{% block menu %}
+    {% set infosMenu = [
+        {'link': 'app_ucouleur', 'title': 'U-Couleur', 'icon' : 'bi-palette'},
+        {'link': 'app_utache', 'title': 'U-Tâche', 'icon' : 'bi-journal-check'},
+        {'link': 'app_umotdepasse', 'title': 'U-Mot de passe', 'icon' : 'bi-lock'},
+        {'link': 'app_udocumentation', 'title': 'U-Documentation', 'icon' : 'bi-folder'}
+    ] %}
+
+    <ul class="nav nav-pills flex-column">
+        {% for key, infoMenu in infosMenu %}
+            <li class="nav-item">
+                <a href="{{ path(infoMenu.link) }}"
+                   class="nav-link {{ currentPath starts with path(infoMenu.link) ? 'active' : 'text-white' }}"
+                   title="Accèder à {{ infoMenu.title }}"
+                        {{ currentPath starts with path(infoMenu.link) ? 'aria-current="page"' }}
+                >
+                    <i class="bi {{ infoMenu.icon }} pe-none me-2"></i>
+                    {{ infoMenu.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
