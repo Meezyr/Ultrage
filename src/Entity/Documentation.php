@@ -38,6 +38,9 @@ class Documentation
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
 
+    #[ORM\Column(nullable: true)]
+    private array $category = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +126,18 @@ class Documentation
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getCategory(): array
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?array $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

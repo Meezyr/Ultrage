@@ -3,15 +3,70 @@
 {% block title %}U-Documentation{% endblock %}
 
 {% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
 {% endblock %}
 
 {% block body %}
-    <section class="w-50 m-auto py-5">
-        <div class="row m-0">
-            <h2 class="mb-5">Centre de documentation</h2>
+    <section class="px-4 py-5">
+        <div class="row m-0 mb-5">
+            <div class="bg-body border rounded p-3">
+                <form id="filter_documentation" role="search">
+                    <p class="fs-4">Filtrer la documentation par :</p>
 
-            <div class="mb-4">
+                    <div class="d-flex gap-3">
+                        <input class="form-control mb-3" type="search" placeholder="Rechercher"
+                               aria-label="Effectuer une recherche">
 
+                        <select class="form-select mb-3" aria-label="Sélectionner une catégorie">
+                            <option selected>Sélectionner une catégorie</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-success" type="submit">Rechercher</button>
+                        <button class="btn btn-outline-secondary" type="reset">Réinitialiser</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row m-0 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="resultList fs-3 m-0">1 Documentations correspondent</p>
+
+                <div>
+                    <select class="form-select" aria-label="Trier la liste">
+                        <option value="release_date_recent" selected>Date de création (récent)</option>
+                        <option value="release_date_ancient">Date de création (ancien)</option>
+                        <option value="update_date_recent">Date de modification (récent)</option>
+                        <option value="update_date_ancient">Date de modification (ancien)</option>
+                        <option value="title_increase">Titre (croissant)</option>
+                        <option value="title_decrease">Titre (décroissant)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 mb-4 g-3" data-masonry='{"percentPosition": true }'>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header text-body-secondary">
+                        <span class="badge text-bg-info">Catégories</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">
+                            <small class="text-body-secondary me-3"><i class="bi bi-clock me-1"></i> 00/00/0000</small>
+                            <small class="text-body-secondary"><i class="bi bi-wrench-adjustable-circle me-1"></i> 00/00/0000</small>
+                        </p>
+                        <a href="#" class="btn btn-primary stretched-link w-100">Go somewhere</a>
+                    </div>
+                    <div class="card-footer text-body-secondary">
+                        <small class="text-body-secondary">Par User</small>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
