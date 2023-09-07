@@ -10840,7 +10840,7 @@ html ::-webkit-scrollbar-thumb {
   border: 1px solid #ced4da;
 }
 
-input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .input-group-text {
+input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .input-group-text, select {
   cursor: pointer;
 }
 

@@ -26,11 +26,7 @@ class UCouleurController extends AbstractController
 
         $users = $userRepository->findAll();
 
-        $statusbar = [
-            'links' => [
-
-            ],
-        ];
+        $statusbar = ['links' => [],];
 
         return $this->render('ucouleur/ucouleur.html.twig', [
             'couleurs' => $couleurs,
