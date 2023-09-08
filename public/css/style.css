@@ -10800,6 +10800,31 @@ html ::-webkit-scrollbar-thumb {
   grid-column: 2/3;
 }
 
+.container-load {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container-load .loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #0d6efd;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .sidebar {
   width: 280px;
   height: 100vh;
@@ -10982,30 +11007,6 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
 }
 #commentModal textarea {
   height: 100px !important;
-}
-#commentModal .container-load {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#commentModal .container-load .loader {
-  width: 48px;
-  height: 48px;
-  border: 5px solid #0d6efd;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 .error-page img {

@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
             integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
             async></script>
+    <script src="{{ asset('js/udocumentation.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -20,12 +21,12 @@
                                aria-label="Effectuer une recherche">
 
                         {% if categories is not empty %}
-                        <select class="form-select mb-3" aria-label="Sélectionner une catégorie" name="categories">
-                            <option selected>Sélectionner une catégorie</option>
-                            {% for category in categories %}
-                            <option value="{{ category }}">{{ category|capitalize }}</option>
-                            {% endfor %}
-                        </select>
+                            <select class="form-select mb-3" aria-label="Sélectionner une catégorie" name="categories">
+                                <option selected disabled>Sélectionner une catégorie</option>
+                                {% for category in categories %}
+                                    <option value="{{ category }}">{{ category|capitalize }}</option>
+                                {% endfor %}
+                            </select>
                         {% endif %}
                     </div>
 
@@ -38,57 +39,25 @@
         </div>
         <div class="row m-0 mb-3">
             <div class="d-flex justify-content-between align-items-center">
-                <p class="resultList fs-3 m-0">1 Documentations correspondent</p>
+                <p class="resultList fs-3 m-0">
+                    {{ docs|length }} Documentation{{ docs|length > 1 ? 's' : '' }}
+                    correspond{{ docs|length > 1 ? 'ent' : '' }}
+                </p>
 
                 <div>
-                    <select class="form-select" aria-label="Trier la liste">
+                    <select class="form-select orderBy" aria-label="Trier la liste">
                         <option value="release_date_recent" selected>Date de création (récent)</option>
                         <option value="release_date_ancient">Date de création (ancien)</option>
                         <option value="update_date_recent">Date de modification (récent)</option>
                         <option value="update_date_ancient">Date de modification (ancien)</option>
-                        <option value="title_increase">Titre (croissant)</option>
-                        <option value="title_decrease">Titre (décroissant)</option>
+                        <option value="title_increase">Titre (A à Z)</option>
+                        <option value="title_decrease">Titre (Z à A)</option>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="row m-0 mb-4 g-3" data-masonry='{"percentPosition": true }'>
-            {% for doc in docs %}
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-header text-body-secondary">
-                            {% if doc.category is not empty %}
-                                {% for category in doc.category %}
-                                    <span class="badge text-bg-secondary">{{ category }}</span>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title"><strong>{{ doc.title }}</strong></h5>
-                            {% if doc.excerpt is not empty %}
-                                <p class="card-text">{{ doc.excerpt }}</p>
-                            {% endif %}
-                            <p class="card-text">
-                                <small class="text-body-secondary me-3">
-                                    <i class="bi bi-clock me-1"></i>
-                                    <time datetime="{{ doc.releaseDate|date("Y-m-d") }}">{{ doc.releaseDate|format_datetime('long', 'short', locale='fr') }}</time>
-                                </small>
-                                {% if doc.updateDate is not empty %}
-                                    <small class="text-body-secondary">
-                                        <i class="bi bi-wrench-adjustable-circle me-1"></i>
-                                        <time datetime="{{ doc.updateDate|date("Y-m-d") }}">{{ doc.updateDate|format_datetime('long', 'short', locale='fr') }}</time>
-                                    </small>
-                                {% endif %}
-                            </p>
-                            <a href="{{ path('app_udocumentation_view', { 'id': doc.id }) }}"
-                               class="btn btn-primary stretched-link w-100">En savoir plus</a>
-                        </div>
-                        <div class="card-footer text-body-secondary">
-                            <small class="text-body-secondary">Par {{ doc.author }}</small>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
+        <div id="listDocument" class="h-100 row m-0 mb-4 g-3" data-masonry='{"percentPosition": true }'>
+
         </div>
     </section>
 {% endblock %}

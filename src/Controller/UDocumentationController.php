@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Documentation;
 use App\Repository\DocumentationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -13,19 +15,13 @@ class UDocumentationController extends AbstractController
     #[Route('/u-documentation', name: 'app_udocumentation')]
     public function index(DocumentationRepository $documentationRepository): Response
     {
-        $docs = $documentationRepository->findBy(['publish' => true]);
+        $docs = $documentationRepository->findBy(['publish' => true], ['release_date' => 'DESC']);
 
         $listDocs = [];
         $allCategory = [];
         foreach ($docs as $doc) {
             $listDocs[] = [
                 'id' => $doc->getId(),
-                'title' => $doc->getTitle(),
-                'excerpt' => $doc->getExcerpt(),
-                'releaseDate' => $doc->getReleaseDate(),
-                'updateDate' => $doc->getUpdateDate(),
-                'category' => $doc->getCategory(),
-                'author' => $doc->getAuthor()->getPseudo()
             ];
 
             if (!empty($doc->getCategory())) {
@@ -49,6 +45,42 @@ class UDocumentationController extends AbstractController
             'docs' => $listDocs,
             'categories' => $allCategory
         ]);
+    }
+
+    #[Route('/u-documentation/ordre', name: 'app_udocumentation_order')]
+    public function allDocumentationOrder(DocumentationRepository $documentationRepository): JsonResponse
+    {
+        $orderName = $_GET['orderBy'];
+
+        $listDocs = [];
+        if (!empty($orderName)) {
+            $orderBy = match ($orderName) {
+                'release_date_ancient' => ['release_date' => 'ASC'],
+                'update_date_recent' => ['update_date' => 'DESC'],
+                'update_date_ancient' => ['update_date' => 'ASC'],
+                'title_increase' => ['title' => 'ASC'],
+                'title_decrease' => ['title' => 'DESC'],
+                default => ['release_date' => 'DESC'],
+            };
+
+            $docs = $documentationRepository->findBy(['publish' => true], $orderBy);
+
+            foreach ($docs as $doc) {
+                $listDocs[] = [
+                    'id' => $doc->getId(),
+                    'title' => $doc->getTitle(),
+                    'excerpt' => !empty($doc->getExcerpt()) ? $doc->getExcerpt() : null,
+                    'releaseDate' => $doc->getReleaseDate()->format('Y-m-d'),
+                    'releaseDateLong' => $doc->getReleaseDate()->format('d/m/Y à G:i'),
+                    'updateDate' => !empty($doc->getUpdateDate()) ? $doc->getUpdateDate()->format('Y-m-d') : null,
+                    'updateDateLong' => !empty($doc->getUpdateDate()) ? $doc->getUpdateDate()->format('d/m/Y à G:i') : null,
+                    'category' => !empty($doc->getExcerpt()) ? $doc->getCategory() : null,
+                    'author' => $doc->getAuthor()->getPseudo()
+                ];
+            }
+        }
+
+        return $this->json($listDocs);
     }
 
     #[Route('/u-documentation/nouvelle-documentation', name: 'app_udocumentation_new')]
