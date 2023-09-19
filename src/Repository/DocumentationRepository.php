@@ -39,6 +39,46 @@ class DocumentationRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllByCriteria($conditions): array
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb->select('d')
+            ->from('App\Entity\Documentation', 'd')
+            ->where('d.publish = TRUE')
+            ->setMaxResults(null)
+        ;
+
+        if (!empty($conditions['search'])) {
+            $qb->andWhere($qb->expr()->like('d.title', ':sea'))
+                ->setParameter('sea', '%' . $conditions['search'] . '%');
+        }
+
+        if (!empty($conditions['category'])) {
+            $qb->andWhere('JSON_CONTAINS(d.category, :cat) = 1')
+                ->setParameter('cat', json_encode($conditions['category']));
+        }
+
+        if (!empty($conditions['order'])) {
+            $orderBy = match ($conditions['order']) {
+                'release_date_ancient' => ['release_date', 'ASC'],
+                'update_date_recent' => ['update_date', 'DESC'],
+                'update_date_ancient' => ['update_date', 'ASC'],
+                'title_increase' => ['title', 'ASC'],
+                'title_decrease' => ['title', 'DESC'],
+                default => ['release_date', 'DESC'],
+            };
+
+            $qb->orderBy('d.'.$orderBy[0], $orderBy[1]);
+        } else {
+            $qb->orderBy('d.release_date', 'ASC');
+        }
+
+        $query = $qb->getQuery();
+
+        return $query->execute();
+    }
+
 //    /**
 //     * @return Documentation[] Returns an array of Documentation objects
 //     */

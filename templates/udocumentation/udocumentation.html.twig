@@ -3,9 +3,6 @@
 {% block title %}U-Documentation{% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
-            integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
-            async></script>
     <script src="{{ asset('js/udocumentation.js') }}"></script>
 {% endblock %}
 
@@ -13,18 +10,18 @@
     <section class="px-4 py-5">
         <div class="row m-0 mb-5">
             <div class="bg-body border rounded p-3">
-                <form id="filter_documentation" role="search">
+                <form id="filter_documentation" role="search" action="">
                     <p class="fs-4">Filtrer la documentation par :</p>
 
                     <div class="d-flex gap-3">
                         <input class="form-control mb-3" type="search" placeholder="Rechercher"
-                               aria-label="Effectuer une recherche">
+                               aria-label="Effectuer une recherche" name="recherche" id="search" value="{{ criteria.search is defined ? criteria.search : '' }}">
 
                         {% if categories is not empty %}
-                            <select class="form-select mb-3" aria-label="Sélectionner une catégorie" name="categories">
+                            <select class="form-select mb-3" aria-label="Sélectionner une catégorie" name="categorie" id="category">
                                 <option selected disabled>Sélectionner une catégorie</option>
                                 {% for category in categories %}
-                                    <option value="{{ category }}">{{ category|capitalize }}</option>
+                                    <option value="{{ category }}" {{ criteria.category is defined and criteria.category is same as(category) ? 'selected' : '' }}>{{ category|capitalize }}</option>
                                 {% endfor %}
                             </select>
                         {% endif %}
@@ -32,7 +29,7 @@
 
                     <div class="d-flex gap-3">
                         <button class="btn btn-success" type="submit">Rechercher</button>
-                        <button class="btn btn-outline-secondary" type="reset">Réinitialiser</button>
+                        <a class="btn btn-outline-secondary" href="{{ path('app_udocumentation') }}">Réinitialiser</a>
                     </div>
                 </form>
             </div>
@@ -56,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div id="listDocument" class="h-100 row m-0 mb-4 g-3" data-masonry='{"percentPosition": true }'>
+        <div id="listDocument" class="h-100 row m-0 mb-4 g-3">
 
         </div>
     </section>

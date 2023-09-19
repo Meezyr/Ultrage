@@ -7,15 +7,26 @@ use App\Repository\DocumentationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UDocumentationController extends AbstractController
 {
     #[Route('/u-documentation', name: 'app_udocumentation')]
-    public function index(DocumentationRepository $documentationRepository): Response
+    public function index(Request $request, DocumentationRepository $documentationRepository): Response
     {
-        $docs = $documentationRepository->findBy(['publish' => true], ['release_date' => 'DESC']);
+        $criteria = [];
+
+        if (!empty($search = $request->query->get('recherche'))) {
+            $criteria['search'] = $search;
+        }
+
+        if (!empty($category = $request->query->get('categorie'))) {
+            $criteria['category'] = $category;
+        }
+
+        $docs = $documentationRepository->findAllByCriteria($criteria);
 
         $listDocs = [];
         $allCategory = [];
@@ -43,27 +54,30 @@ class UDocumentationController extends AbstractController
         return $this->render('udocumentation/udocumentation.html.twig', [
             'dataStatusbar' => $statusbar,
             'docs' => $listDocs,
-            'categories' => $allCategory
+            'categories' => $allCategory,
+            'criteria' => $criteria
         ]);
     }
 
     #[Route('/u-documentation/ordre', name: 'app_udocumentation_order')]
-    public function allDocumentationOrder(DocumentationRepository $documentationRepository): JsonResponse
+    public function allDocumentationOrder(Request $request, DocumentationRepository $documentationRepository): JsonResponse
     {
-        $orderName = $_GET['orderBy'];
-
         $listDocs = [];
-        if (!empty($orderName)) {
-            $orderBy = match ($orderName) {
-                'release_date_ancient' => ['release_date' => 'ASC'],
-                'update_date_recent' => ['update_date' => 'DESC'],
-                'update_date_ancient' => ['update_date' => 'ASC'],
-                'title_increase' => ['title' => 'ASC'],
-                'title_decrease' => ['title' => 'DESC'],
-                default => ['release_date' => 'DESC'],
-            };
+        if (!empty($orderName = $request->query->get('orderBy'))) {
 
-            $docs = $documentationRepository->findBy(['publish' => true], $orderBy);
+            $criteria = [];
+
+            if (!empty($search = $request->query->get('recherche'))) {
+                $criteria['search'] = $search;
+            }
+
+            if (!empty($category = $request->query->get('categorie'))) {
+                $criteria['category'] = $category;
+            }
+
+            $criteria['order'] = $orderName;
+
+            $docs = $documentationRepository->findAllByCriteria($criteria);
 
             foreach ($docs as $doc) {
                 $listDocs[] = [

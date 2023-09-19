@@ -6,7 +6,7 @@ $(document).ready(function () {
         let html = '';
 
         html += '<div class="col-4">' +
-            '<div class="card">' +
+            '<div class="card h-100">' +
             '<div class="card-header text-body-secondary">';
         if (item.category) {
             item.category.forEach((category) => {
@@ -14,7 +14,8 @@ $(document).ready(function () {
             });
         }
         html += '</div>' +
-            '<div class="card-body">' +
+            '<div class="card-body d-flex flex-column justify-content-between gap-4">' +
+            '<div class="texts-card">' +
             '<h5 class="card-title"><strong>' + item.title + '</strong></h5>';
         if (item.excerpt) {
             html += '<p class="card-text">' + item.excerpt + '</p>';
@@ -31,6 +32,7 @@ $(document).ready(function () {
                 '</small>';
         }
         html += '</p>' +
+            '</div>' +
             '<a href="/u-documentation/documentation/' + item.id + '" class="btn btn-primary stretched-link w-100">En savoir plus</a>' +
             '</div>' +
             '<div class="card-footer text-body-secondary">' +
@@ -49,7 +51,7 @@ $(document).ready(function () {
             url: '/u-documentation/ordre',
             dataType: "json",
             type: "GET",
-            data: {orderBy: valOrder},
+            data: {orderBy: valOrder, recherche: getParam('recherche'), categorie: getParam('categorie')},
             success: function (data) {
                 $('#listDocument .container-load').remove();
 
