@@ -51,6 +51,7 @@ class DocumentationRepository extends ServiceEntityRepository
 
         if (!empty($conditions['search'])) {
             $qb->andWhere($qb->expr()->like('d.title', ':sea'))
+                ->orWhere($qb->expr()->like('d.excerpt', ':sea'))
                 ->setParameter('sea', '%' . $conditions['search'] . '%');
         }
 

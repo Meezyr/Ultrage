@@ -5,6 +5,8 @@ $(document).ready(function () {
     function htmlListDocument(item) {
         let html = '';
 
+        console.log(item);
+
         html += '<div class="col-4">' +
             '<div class="card h-100">' +
             '<div class="card-header text-body-secondary">';

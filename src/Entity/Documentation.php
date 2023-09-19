@@ -19,7 +19,7 @@ class Documentation
     #[ORM\Column(length: 150)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 180, nullable: true)]
+    #[ORM\Column(length: 180)]
     private ?string $excerpt = null;
 
     #[ORM\Column(type: Types::TEXT)]
