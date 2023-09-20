@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Documentation;
+use App\Form\DocumentationFormType;
 use App\Repository\DocumentationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,11 +70,11 @@ class UDocumentationController extends AbstractController
             $criteria = [];
 
             if (!empty($search = $request->query->get('recherche'))) {
-                $criteria['search'] = $search;
+                $criteria['search'] = urldecode($search);
             }
 
             if (!empty($category = $request->query->get('categorie'))) {
-                $criteria['category'] = $category;
+                $criteria['category'] = urldecode($category);
             }
 
             $criteria['order'] = $orderName;
@@ -85,9 +87,9 @@ class UDocumentationController extends AbstractController
                     'title' => $doc->getTitle(),
                     'excerpt' => !empty($doc->getExcerpt()) ? $doc->getExcerpt() : null,
                     'releaseDate' => $doc->getReleaseDate()->format('Y-m-d'),
-                    'releaseDateLong' => $doc->getReleaseDate()->format('d/m/Y à G:i'),
+                    'releaseDateLong' => $doc->getReleaseDate()->format('d/m/Y à H:i'),
                     'updateDate' => !empty($doc->getUpdateDate()) ? $doc->getUpdateDate()->format('Y-m-d') : null,
-                    'updateDateLong' => !empty($doc->getUpdateDate()) ? $doc->getUpdateDate()->format('d/m/Y à G:i') : null,
+                    'updateDateLong' => !empty($doc->getUpdateDate()) ? $doc->getUpdateDate()->format('d/m/Y à H:i') : null,
                     'category' => !empty($doc->getExcerpt()) ? $doc->getCategory() : null,
                     'author' => $doc->getAuthor()->getPseudo()
                 ];
@@ -98,8 +100,29 @@ class UDocumentationController extends AbstractController
     }
 
     #[Route('/u-documentation/nouvelle-documentation', name: 'app_udocumentation_new')]
-    public function newDocumentation(): Response
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
+    public function newDocumentation(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $doc = new Documentation();
+        $form = $this->createForm(DocumentationFormType::class, $doc);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $arrayData = explode(',', $form->get('categories')->getData());
+
+            $date = new \DateTime();
+            $date->setTimezone(new \DateTimeZone('Europe/Paris'));
+
+            $doc->setReleaseDate($date);
+            $doc->setAuthor($this->getUser());
+            $doc->setCategory($arrayData);
+
+            $entityManager->persist($doc);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_udocumentation');
+        }
+
         $statusbar = [
             'links' => [
                 ['title' => 'Liste des documentations', 'url' => $this->generateUrl("app_udocumentation"), 'target' => false],
@@ -109,6 +132,7 @@ class UDocumentationController extends AbstractController
 
         return $this->render('udocumentation/new_documentation.html.twig', [
             'dataStatusbar' => $statusbar,
+            'newDocumentationForm' => $form->createView(),
         ]);
     }
 

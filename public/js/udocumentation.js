@@ -5,8 +5,6 @@ $(document).ready(function () {
     function htmlListDocument(item) {
         let html = '';
 
-        console.log(item);
-
         html += '<div class="col-4">' +
             '<div class="card h-100">' +
             '<div class="card-header text-body-secondary">';
@@ -48,7 +46,7 @@ $(document).ready(function () {
 
     function loadDocument(valOrder) {
         $('#listDocument').append('<div class="container-load my-4"><span class="loader"></span></div>');
-
+        
         $.ajax({
             url: '/u-documentation/ordre',
             dataType: "json",
@@ -57,9 +55,14 @@ $(document).ready(function () {
             success: function (data) {
                 $('#listDocument .container-load').remove();
 
+                console.log(data)
+
                 data.forEach((item) => {
                     $('#listDocument').append(htmlListDocument(item));
                 });
+            },
+            error: function (error) {
+                console.log(error);
             }
         });
     }

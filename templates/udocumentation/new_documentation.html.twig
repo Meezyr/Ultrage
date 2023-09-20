@@ -3,16 +3,50 @@
 {% block title %}U-Documentation{% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('js/udocumentation_form.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-    <section class="w-50 m-auto py-5">
-        <div class="row m-0">
-            <h2 class="mb-5">Nouvelle documentation</h2>
+    {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 
-            <div class="mb-4">
+    <section id="newDocumentation" class="w-50 m-auto py-5">
+        {{ form_start(newDocumentationForm) }}
+            {{ form_errors(newDocumentationForm) }}
 
+            <h1 class="h3 mb-5 fw-normal">
+                Saisissez les informations pour
+                {{ currentPath == '/u-documentation/nouvelle-documentation' ? 'créer une nouvelle' : 'modifier la' }}
+                documentation
+            </h1>
+
+            <div class="form-floating mb-4">
+                {{ form_widget(newDocumentationForm.title, {'attr': {'placeholder': 'Titre', 'class': 'form-control', 'autofocus': 'autofocus'}}) }}
+                {{ form_label(newDocumentationForm.title) }}
             </div>
+
+            <div class="form-floating mb-4">
+                {{ form_widget(newDocumentationForm.excerpt, {'attr': {'placeholder': 'Extrait', 'class': 'form-control'}}) }}
+                {{ form_label(newDocumentationForm.excerpt) }}
+            </div>
+
+            <div class="form-floating mb-4">
+                {{ form_widget(newDocumentationForm.text, {'attr': {'placeholder': 'Contenu', 'class': 'form-control', 'style': 'height: 500px'}}) }}
+                {{ form_label(newDocumentationForm.text) }}
+            </div>
+
+            <div class="form-floating mb-4">
+                {{ form_widget(newDocumentationForm.publish, {'attr': {'placeholder': 'Publication', 'class': 'form-select', 'aria-label': "Sélectionner l'état de publication de la documentation"}}) }}
+                {{ form_label(newDocumentationForm.publish) }}
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
+
+            {{ form_widget(newDocumentationForm.categories) }}
+        {{ form_end(newDocumentationForm) }}
+
+        <div class="add-category">
+            <input type="text" name="category" id="category">
+            <button class="button-category">Ajouter</button>
         </div>
     </section>
 {% endblock %}
