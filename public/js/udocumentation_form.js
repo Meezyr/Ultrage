@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         if (textOnlyRegex.test(valInput) && valInput.trim() !== '') {
             if (array.find(e => e === valInput)) {
-                $('<p class="error-category">La catégorie est déjà existante.</p>').appendTo('.add-category');
+                $('<div class="invalid-feedback error-category">La catégorie est déjà existante.</div>').appendTo('.add-category');
 
                 setTimeout(function () {
                     $('.add-category .error-category').remove();
@@ -23,7 +23,7 @@ $(document).ready(function () {
                 inputCategory.val('');
             }
         } else {
-            $('<p class="error-category">Le nom de la catégorie est invalide.</p>').appendTo('.add-category');
+            $('<div class="invalid-feedback error-category">Le nom de la catégorie est invalide.</div>').appendTo('.add-category');
 
             setTimeout(function () {
                 $('.add-category .error-category').remove();
