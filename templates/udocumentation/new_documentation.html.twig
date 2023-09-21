@@ -10,14 +10,22 @@
     {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 
     <section id="newDocumentation" class="w-50 m-auto py-5">
+        <h1 class="h3 mb-5 fw-normal">
+            Saisissez les informations pour
+            {{ currentPath == '/u-documentation/nouvelle-documentation' ? 'créer une nouvelle' : 'modifier la' }}
+            documentation
+        </h1>
+
+        <div class="add-category mb-4">
+            <div class="input-group">
+                <span class="input-group-text" id="label-category">Catégories</span>
+                <input type="text" class="form-control" placeholder="Nom de la catégorie" aria-label="Catégories" aria-describedby="label-category" name="category" id="category">
+                <button class="btn btn-outline-secondary button-category" type="button">Ajouter</button>
+            </div>
+        </div>
+
         {{ form_start(newDocumentationForm) }}
             {{ form_errors(newDocumentationForm) }}
-
-            <h1 class="h3 mb-5 fw-normal">
-                Saisissez les informations pour
-                {{ currentPath == '/u-documentation/nouvelle-documentation' ? 'créer une nouvelle' : 'modifier la' }}
-                documentation
-            </h1>
 
             <div class="form-floating mb-4">
                 {{ form_widget(newDocumentationForm.title, {'attr': {'placeholder': 'Titre', 'class': 'form-control', 'autofocus': 'autofocus'}}) }}
@@ -29,9 +37,9 @@
                 {{ form_label(newDocumentationForm.excerpt) }}
             </div>
 
-            <div class="form-floating mb-4">
-                {{ form_widget(newDocumentationForm.text, {'attr': {'placeholder': 'Contenu', 'class': 'form-control', 'style': 'height: 500px'}}) }}
-                {{ form_label(newDocumentationForm.text) }}
+            <div class="mb-4">
+                {{ form_label(newDocumentationForm.text, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(newDocumentationForm.text, {'attr': {'placeholder': 'Contenu'}}) }}
             </div>
 
             <div class="form-floating mb-4">
@@ -43,10 +51,5 @@
 
             {{ form_widget(newDocumentationForm.categories) }}
         {{ form_end(newDocumentationForm) }}
-
-        <div class="add-category">
-            <input type="text" name="category" id="category">
-            <button class="button-category">Ajouter</button>
-        </div>
     </section>
 {% endblock %}

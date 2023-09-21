@@ -12,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
+        "eckinox/tinymce-bundle": "^0.1.5",
         "gregwar/captcha-bundle": "^2.2",
         "imagine/imagine": "1.2",
         "nelmio/cors-bundle": "^2.2",

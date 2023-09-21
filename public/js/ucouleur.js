@@ -171,8 +171,9 @@ $(document).ready(function () {
 
     //Ajout d'une couleur
     $('#addColor').click(function () {
+        let keywordsText = $('#texteKeywords');
         let colorCode = colorPicker.color.hex8String;
-        let texteKeywords = $('#texteKeywords').val();
+        let texteKeywords = keywordsText.val();
         let keywords = texteKeywords.split(/,\s*/);
 
         $.ajax({
@@ -183,7 +184,7 @@ $(document).ready(function () {
             location.reload();
         });
 
-        $('#texteKeywords').val('');
+        keywordsText.val('');
     });
 
 });

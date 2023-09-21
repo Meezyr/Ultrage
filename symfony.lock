@@ -49,6 +49,9 @@
             "migrations/.gitignore"
         ]
     },
+    "eckinox/tinymce-bundle": {
+        "version": "v0.1.5"
+    },
     "gregwar/captcha-bundle": {
         "version": "v2.2.0"
     },

@@ -1,0 +1,14 @@
+.add-category {
+    .text-category .value-category {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .remove-category {
+            height: 14px;
+            width: 14px;
+            padding: 0;
+            margin: 0 0 0 5px;
+        }
+    }
+}

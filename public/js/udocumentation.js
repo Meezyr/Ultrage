@@ -55,8 +55,6 @@ $(document).ready(function () {
             success: function (data) {
                 $('#listDocument .container-load').remove();
 
-                console.log(data)
-
                 data.forEach((item) => {
                     $('#listDocument').append(htmlListDocument(item));
                 });
