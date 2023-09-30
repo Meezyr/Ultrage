@@ -32,6 +32,29 @@ $(document).ready(function () {
         }
     }
 
+    // Modifier documentation
+    if (window.location.pathname.search("modifier") !== -1) {
+        const idDoc = parseInt(window.location.pathname.slice(40, window.location.pathname.length));
+
+        $.ajax({
+            url: '/u-documentation/info-documentation',
+            dataType: "json",
+            type: "GET",
+            data: {id: idDoc},
+            success: function (data) {
+                data.category.forEach((item) => {
+                    arrayCategory.push(item);
+                    $('#documentation_form_categories').val(arrayCategory);
+
+                    $('<span class="badge text-bg-info value-category mt-2">' + item + ' <button class="btn-close remove-category" aria-label="Close" data-category="' + item + '"></button></span>').appendTo('.add-category .text-category');
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
     $('<div class="text-category d-flex flex-row gap-2"></div>').appendTo('.add-category');
 
     buttonCategory.click(function () {
@@ -50,6 +73,8 @@ $(document).ready(function () {
         arrayCategory = arrayCategory.filter(function (element) {
             return element !== valueCategory;
         });
+
+        $('#documentation_form_categories').val(arrayCategory);
 
         $(this).parent().remove();
     });

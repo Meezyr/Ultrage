@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}U-Documentation{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    {% if docs.notPublish %}
+        <section class="px-4 my-5">
+            <div class="row m-0 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="resultList fs-3 m-0">
+                        {{ docs.notPublish|length }} Documentation{{ docs.notPublish|length > 1 ? 's' : '' }}
+                        non publiée{{ docs.notPublish|length > 1 ? 's' : '' }}
+                    </p>
+                </div>
+            </div>
+            <div id="listDocumentNotPublish" class="row m-0 g-3">
+                {% for doc in docs.notPublish %}
+                    <div class="col-4">
+                        <div class="card h-100">
+                            <div class="card-header text-body-secondary">
+                                {% if doc.category %}
+                                    {% for category in doc.category %}
+                                        <span class="badge text-bg-secondary">{{ category }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between gap-4">
+                                <div class="texts-card">
+                                    <h5 class="card-title"><strong>{{ doc.title }}</strong></h5>
+                                    {% if doc.excerpt %}
+                                        <p class="card-text">{{ doc.excerpt }}</p>
+                                    {% endif %}
+                                    <p class="card-text">
+                                        <small class="text-body-secondary me-3">
+                                            <i class="bi bi-clock me-1"></i>
+                                            <time datetime="{{ doc.releaseDate }}">{{ doc.releaseDateLong }}</time>
+                                        </small>
+                                        {% if doc.updateDate %}
+                                            <small class="text-body-secondary">
+                                                <i class="bi bi-wrench-adjustable-circle me-1"></i>
+                                                <time datetime="{{ doc.updateDate }}">{{ doc.updateDateLong }}</time>
+                                            </small>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href="{{ path('app_udocumentation_view', {'id': doc.id}) }}"
+                                       class="btn btn-primary w-100 mb-2">En savoir plus</a>
+                                    <div class="d-flex flex-row gap-2">
+                                        <a href="{{ path('app_udocumentation_modify', {'id': doc.id}) }}"
+                                           class="btn btn-warning w-100">Modifier</a>
+                                        <a href="{{ path('app_udocumentation_delete', {'id': doc.id}) }}"
+                                           class="btn btn-danger w-100">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+    {% if docs.publish %}
+        <section class="px-4 mb-5">
+            <div class="row m-0 mb-3">
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="resultList fs-3 m-0">
+                        {{ docs.publish|length }} Documentation{{ docs.publish|length > 1 ? 's' : '' }}
+                        publiée{{ docs.publish|length > 1 ? 's' : '' }}
+                    </p>
+                </div>
+            </div>
+            <div id="listDocumentNotPublish" class="row m-0 g-3">
+                {% for doc in docs.publish %}
+                    <div class="col-4">
+                        <div class="card h-100">
+                            <div class="card-header text-body-secondary">
+                                {% if doc.category %}
+                                    {% for category in doc.category %}
+                                        <span class="badge text-bg-secondary">{{ category }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="card-body d-flex flex-column justify-content-between gap-4">
+                                <div class="texts-card">
+                                    <h5 class="card-title"><strong>{{ doc.title }}</strong></h5>
+                                    {% if doc.excerpt %}
+                                        <p class="card-text">{{ doc.excerpt }}</p>
+                                    {% endif %}
+                                    <p class="card-text">
+                                        <small class="text-body-secondary me-3">
+                                            <i class="bi bi-clock me-1"></i>
+                                            <time datetime="{{ doc.releaseDate }}">{{ doc.releaseDateLong }}</time>
+                                        </small>
+                                        {% if doc.updateDate %}
+                                            <small class="text-body-secondary">
+                                                <i class="bi bi-wrench-adjustable-circle me-1"></i>
+                                                <time datetime="{{ doc.updateDate }}">{{ doc.updateDateLong }}</time>
+                                            </small>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href="{{ path('app_udocumentation_view', {'id': doc.id}) }}"
+                                       class="btn btn-primary w-100 mb-2">En savoir plus</a>
+                                    <div class="d-flex flex-row gap-2">
+                                        <a href="{{ path('app_udocumentation_modify', {'id': doc.id}) }}"
+                                           class="btn btn-warning w-100">Modifier</a>
+                                        <a href="{{ path('app_udocumentation_delete', {'id': doc.id}) }}"
+                                           class="btn btn-danger w-100">Supprimer</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
