@@ -7,6 +7,7 @@ use Eckinox\TinymceBundle\Form\Type\TinymceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,9 +21,10 @@ class DocumentationFormType extends AbstractType
                 'label' => 'Titre',
                 'required' => true,
             ])
-            ->add('excerpt', TextType::class, [
+            ->add('excerpt', TextareaType::class, [
                 'label' => 'Extrait',
                 'required' => true,
+                'attr' => ['style' => 'height: 80px;'],
             ])
             ->add('text', TinymceType::class, [
                 'label' => 'Contenu',
