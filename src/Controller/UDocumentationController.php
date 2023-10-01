@@ -6,13 +6,14 @@ use App\Entity\Documentation;
 use App\Form\DocumentationFormType;
 use App\Repository\DocumentationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\Integer;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class UDocumentationController extends AbstractController
 {
@@ -106,9 +107,12 @@ class UDocumentationController extends AbstractController
         return $this->json($listDocs);
     }
 
+    /**
+     * @throws Exception
+     */
     #[Route('/u-documentation/nouvelle-documentation', name: 'app_udocumentation_new')]
     #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
-    public function newDocumentation(Request $request, EntityManagerInterface $entityManager): Response
+    public function newDocumentation(Request $request, EntityManagerInterface $entityManager, DocumentationRepository $documentationRepository): Response
     {
         $doc = new Documentation();
         $form = $this->createForm(DocumentationFormType::class, $doc);
@@ -120,9 +124,12 @@ class UDocumentationController extends AbstractController
             $date = new \DateTime();
             $date->setTimezone(new \DateTimeZone('Europe/Paris'));
 
+            $slugUnique = $this->getSlug($form->get('title')->getData(), $documentationRepository);
+
             $doc->setReleaseDate($date);
             $doc->setAuthor($this->getUser());
             $doc->setCategory($arrayData);
+            $doc->setSlug($slugUnique);
 
             $entityManager->persist($doc);
             $entityManager->flush();
@@ -155,7 +162,7 @@ class UDocumentationController extends AbstractController
 
                 $entityManager->flush();
 
-                return $this->redirectToRoute('app_udocumentation_user');
+                return $this->redirectToRoute('app_udocumentation_view', ['id' => $documentation->getId()]);
             }
 
             return $this->render('udocumentation/new_documentation.html.twig', [
@@ -169,7 +176,7 @@ class UDocumentationController extends AbstractController
 
     #[Route('/u-documentation/supprimer-documentation/{id}', name: 'app_udocumentation_delete')]
     #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
-    public function deleteDocumentation(Documentation $documentation, Request $request, EntityManagerInterface $entityManager): Response
+    public function deleteDocumentation(Documentation $documentation, EntityManagerInterface $entityManager): Response
     {
         if ($this->getUser() === $documentation->getAuthor()) {
             $entityManager->remove($documentation);
@@ -258,5 +265,29 @@ class UDocumentationController extends AbstractController
                 ['title' => 'Mes documentations', 'url' => $this->generateUrl("app_udocumentation_user"), 'target' => false],
             ],
         ];
+    }
+
+    /**
+     * @param string $title
+     * @param $documentationRepository
+     * @return string
+     * @throws Exception
+     */
+    public function getSlug(string $title, $documentationRepository): string
+    {
+        $slugger = new AsciiSlugger();
+        $slug = strtolower($slugger->slug($title, '-'));
+
+        $docsSearchSlug = $documentationRepository->findBy(['slug' => $slug]);
+
+        $slugTitle = $slug;
+
+        if (!empty($docsSearchSlug)) {
+            do {
+                $slugTitle = $slug.'-'.random_int(1,50);
+            } while (!empty($documentationRepository->findBy(['slug' => $slugTitle])));
+        }
+
+        return $slugTitle;
     }
 }
