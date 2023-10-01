@@ -3,7 +3,8 @@
 
     <aside class="sidebar position-relative">
         <div class="fixed-sidebar d-flex flex-column position-fixed top-0 start-0 text-bg-dark p-3">
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none" href="{{ path('app_accueil') }}">
+            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
+               href="{{ path('app_accueil') }}">
                 <img class="img-sidebar pe-none me-2" src="{{ asset('img/favicon.png') }}" alt="Logo Ultrage">
                 <span class="fs-4">Ultrage</span>
             </a>
@@ -14,23 +15,27 @@
             <hr>
             {% if app.user %}
                 <div class="dropdown">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        {% if app.user.avatar %}
-                            <img src="{{ asset('img/avatar/' ~ app.user.avatar) }}"
-                                 alt="Avatar de {{ app.user.pseudo ? app.user.pseudo|capitalize : '' }}" class="img-avatar-sidebar rounded-circle me-2">
-                        {% endif %}
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ app.user.avatar ? asset('img/avatar/' ~ app.user.avatar) : asset('img/default_profile.jpg') }}"
+                             alt="Avatar de {{ app.user.pseudo ? app.user.pseudo|capitalize : '' }}"
+                             class="img-avatar-sidebar rounded-circle me-2">
                         <strong>{{ app.user.pseudo|capitalize }}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                         <li><a class="dropdown-item" href="{{ path('app_profile') }}">Profil</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
                     </ul>
                 </div>
             {% else %}
                 <div class="d-flex flex-row justify-content-between">
-                    <a class="btn btn-outline-light" href="{{ path('app_login') }}"><i class="bi bi-person"></i> S'identifier</a>
-                    <a class="btn btn-outline-light" href="{{ path('app_register') }}"><i class="bi bi-person-plus"></i> S'inscrire</a>
+                    <a class="btn btn-outline-light" href="{{ path('app_login') }}"><i class="bi bi-person"></i>
+                        S'identifier</a>
+                    <a class="btn btn-outline-light" href="{{ path('app_register') }}"><i class="bi bi-person-plus"></i>
+                        S'inscrire</a>
                 </div>
             {% endif %}
         </div>
