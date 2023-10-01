@@ -6,9 +6,126 @@
 {% endblock %}
 
 {% block body %}
-    <section class="px-4 py-5">
-        <div class="row m-0 mb-3">
-            <h1>title</h1>
+    <section class="px-4 mt-5">
+        <div class="row m-0">
+            <h2 class="h1">{{ doc.title }}</h2>
+            {% if doc.excerpt %}
+                <p class="lead m-0">{{ doc.excerpt }}</p>
+            {% endif %}
+        </div>
+    </section>
+    <section class="px-4 my-4">
+        <div class="row m-0">
+            <div class="bg-body border rounded p-3">
+
+
+                <div class="d-flex flex-column flex-lg-row justify-content-between">
+                    <div>
+                        <p class="fs-4">Informations</p>
+
+                        <div class="d-flex gap-5">
+                            <div class="d-flex">
+                                <i class="bi bi-clock me-2"></i>
+                                <p class="m-0">
+                                    Date de publication :
+                                    <strong>
+                                        <time datetime="{{ doc.releaseDate }}">{{ doc.releaseDateLong }}</time>
+                                    </strong>
+                                </p>
+                            </div>
+
+                            {% if doc.updateDate %}
+                                <div class="d-flex">
+                                    <i class="bi bi-wrench-adjustable-circle me-2"></i>
+                                    <p class="m-0">Date de modification :
+                                        <strong>
+                                            <time datetime="{{ doc.updateDate }}">{{ doc.updateDateLong }}</time>
+                                        </strong>
+                                    </p>
+                                </div>
+                            {% endif %}
+
+                            {% if doc.category %}
+                                <div class="d-flex">
+                                    <i class="bi bi-tag me-2"></i>
+                                    <p class="m-0">
+                                        Catégories :
+                                        <strong class="text-capitalize">{{ doc.category }}</strong>
+                                    </p>
+                                </div>
+                            {% endif %}
+
+                            <div class="d-flex">
+                                <i class="bi bi-person-check me-2"></i>
+                                <p class="m-0">
+                                    Auteur :
+                                    <img src="{{ doc.author.avatar ? asset('img/avatar/' ~ doc.author.avatar) : asset('img/default_profile.jpg') }}"
+                                         alt="Photo de profil de l'auteur de la documentation"
+                                         class="img-avatar-sidebar rounded-circle">
+                                    <strong>{{ doc.author.pseudo|capitalize }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex flex-column gap-2">
+                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                            {% if app.user.id == doc.author.id %}
+                                <a href="{{ path('app_udocumentation_modify', {'id': doc.id}) }}"
+                                   class="btn btn-warning">Modifier</a>
+                                <a href="{{ path('app_udocumentation_delete', {'id': doc.id}) }}"
+                                   class="btn btn-danger">Supprimer</a>
+                            {% endif %}
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    Partager
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" target="_blank"
+                                           href="https://twitter.com/share?url={{ url('app_udocumentation_view', {'id': doc.id}) }}&text={{ doc.title }}">
+                                            Partager sur X
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" target="_blank"
+                                           href="https://www.facebook.com/sharer/sharer.php?u={{ url('app_udocumentation_view', {'id': doc.id}) }}">
+                                            Partager sur Facebook
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" target="_blank"
+                                           href="https://www.linkedin.com/shareArticle?mini=true&url={{ url('app_udocumentation_view', {'id': doc.id}) }}">
+                                            Partager sur LinkedIn
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" target="_blank"
+                                           href="mailto:info@example.com?&subject=&body={{ doc.title }}%0A{{ url('app_udocumentation_view', {'id': doc.id}) }}">
+                                            Partager par mail
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="px-4 mb-5">
+        <div class="row m-0">
+            <div class="contenu">
+                {{ doc.text|raw }}
+            </div>
+
+            <div class="mt-4">
+                <a href="{{ path("app_udocumentation") }}" title="Retour" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i>
+                    Retour
+                </a>
+            </div>
         </div>
     </section>
 {% endblock %}

@@ -6,6 +6,7 @@ use App\Entity\Documentation;
 use App\Form\DocumentationFormType;
 use App\Repository\DocumentationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Integer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,16 +47,8 @@ class UDocumentationController extends AbstractController
             }
         }
 
-        $statusbar = [
-            'links' => [
-                ['title' => 'Liste des documentations', 'url' => $this->generateUrl("app_udocumentation"), 'target' => false],
-                ['title' => 'Créer une documentation', 'url' => $this->generateUrl("app_udocumentation_new"), 'target' => false],
-                ['title' => 'Mes documentations', 'url' => $this->generateUrl("app_udocumentation_user"), 'target' => false],
-            ],
-        ];
-
         return $this->render('udocumentation/udocumentation.html.twig', [
-            'dataStatusbar' => $statusbar,
+            'dataStatusbar' => $this->getStatusbar(),
             'docs' => $listDocs,
             'categories' => $allCategory,
             'criteria' => $criteria
@@ -137,16 +130,8 @@ class UDocumentationController extends AbstractController
             return $this->redirectToRoute('app_udocumentation');
         }
 
-        $statusbar = [
-            'links' => [
-                ['title' => 'Liste des documentations', 'url' => $this->generateUrl("app_udocumentation"), 'target' => false],
-                ['title' => 'Créer une documentation', 'url' => $this->generateUrl("app_udocumentation_new"), 'target' => false],
-                ['title' => 'Mes documentations', 'url' => $this->generateUrl("app_udocumentation_user"), 'target' => false],
-            ],
-        ];
-
         return $this->render('udocumentation/new_documentation.html.twig', [
-            'dataStatusbar' => $statusbar,
+            'dataStatusbar' => $this->getStatusbar(),
             'newDocumentationForm' => $form->createView(),
         ]);
     }
@@ -173,16 +158,8 @@ class UDocumentationController extends AbstractController
                 return $this->redirectToRoute('app_udocumentation_user');
             }
 
-            $statusbar = [
-                'links' => [
-                    ['title' => 'Liste des documentations', 'url' => $this->generateUrl("app_udocumentation"), 'target' => false],
-                    ['title' => 'Créer une documentation', 'url' => $this->generateUrl("app_udocumentation_new"), 'target' => false],
-                    ['title' => 'Mes documentations', 'url' => $this->generateUrl("app_udocumentation_user"), 'target' => false],
-                ],
-            ];
-
             return $this->render('udocumentation/new_documentation.html.twig', [
-                'dataStatusbar' => $statusbar,
+                'dataStatusbar' => $this->getStatusbar(),
                 'newDocumentationForm' => $form->createView(),
             ]);
         }
@@ -205,18 +182,26 @@ class UDocumentationController extends AbstractController
     #[Route('/u-documentation/documentation/{id}', name: 'app_udocumentation_view')]
     public function viewDocumentation(Documentation $documentation): Response
     {
-        dump($documentation);
-
-        $statusbar = [
-            'links' => [
-                ['title' => 'Liste des documentations', 'url' => $this->generateUrl("app_udocumentation"), 'target' => false],
-                ['title' => 'Créer une documentation', 'url' => $this->generateUrl("app_udocumentation_new"), 'target' => false],
-                ['title' => 'Mes documentations', 'url' => $this->generateUrl("app_udocumentation_user"), 'target' => false],
-            ],
+        $doc = [
+            'id' => $documentation->getId(),
+            'title' => $documentation->getTitle(),
+            'excerpt' => !empty($documentation->getExcerpt()) ? $documentation->getExcerpt() : null,
+            'text' => $documentation->getText(),
+            'releaseDate' => $documentation->getReleaseDate()->format('Y-m-d'),
+            'releaseDateLong' => $documentation->getReleaseDate()->format('d/m/Y à H:i'),
+            'updateDate' => !empty($documentation->getUpdateDate()) ? $documentation->getUpdateDate()->format('Y-m-d') : null,
+            'updateDateLong' => !empty($documentation->getUpdateDate()) ? $documentation->getUpdateDate()->format('d/m/Y à H:i') : null,
+            'category' => !empty($documentation->getExcerpt()) ? implode(", ", $documentation->getCategory()) : null,
+            'author' => [
+                'id' => $documentation->getAuthor()->getId(),
+                'pseudo' => $documentation->getAuthor()->getPseudo(),
+                'avatar' => !empty($documentation->getAuthor()->getAvatar()) ? $documentation->getAuthor()->getAvatar() : null,
+            ]
         ];
 
         return $this->render('udocumentation/view_documentation.html.twig', [
-            'dataStatusbar' => $statusbar,
+            'dataStatusbar' => $this->getStatusbar(),
+            'doc' => $doc,
         ]);
     }
 
@@ -235,16 +220,8 @@ class UDocumentationController extends AbstractController
             'publish' => $listDocsPublish,
         ];
 
-        $statusbar = [
-            'links' => [
-                ['title' => 'Liste des documentations', 'url' => $this->generateUrl("app_udocumentation"), 'target' => false],
-                ['title' => 'Créer une documentation', 'url' => $this->generateUrl("app_udocumentation_new"), 'target' => false],
-                ['title' => 'Mes documentations', 'url' => $this->generateUrl("app_udocumentation_user"), 'target' => false],
-            ],
-        ];
-
         return $this->render('udocumentation/user_documentation.html.twig', [
-            'dataStatusbar' => $statusbar,
+            'dataStatusbar' => $this->getStatusbar(),
             'docs' => $listDocs,
         ]);
     }
@@ -270,5 +247,16 @@ class UDocumentationController extends AbstractController
             ];
         }
         return $listDocs;
+    }
+
+    public function getStatusbar(): array
+    {
+        return [
+            'links' => [
+                ['title' => 'Liste des documentations', 'url' => $this->generateUrl("app_udocumentation"), 'target' => false],
+                ['title' => 'Créer une documentation', 'url' => $this->generateUrl("app_udocumentation_new"), 'target' => false],
+                ['title' => 'Mes documentations', 'url' => $this->generateUrl("app_udocumentation_user"), 'target' => false],
+            ],
+        ];
     }
 }

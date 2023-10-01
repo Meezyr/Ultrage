@@ -49,6 +49,8 @@
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
 
+            <a href="{{ path("app_udocumentation_user") }}" title="Annuler" class="btn btn-outline-danger mt-3 w-100">Annuler</a>
+
             {{ form_widget(newDocumentationForm.categories) }}
         {{ form_end(newDocumentationForm) }}
     </section>

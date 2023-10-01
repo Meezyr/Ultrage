@@ -10838,7 +10838,8 @@ html ::-webkit-scrollbar-thumb {
   width: 32px;
   height: 32px;
 }
-.sidebar .img-avatar-sidebar {
+
+.img-avatar-sidebar {
   width: 32px;
   object-fit: cover;
   aspect-ratio: 1/1;

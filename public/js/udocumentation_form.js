@@ -33,7 +33,7 @@ $(document).ready(function () {
     }
 
     // Modifier documentation
-    if (window.location.pathname.search("modifier") !== -1) {
+    if (window.location.pathname.includes("modifier")) {
         const idDoc = parseInt(window.location.pathname.slice(40, window.location.pathname.length));
 
         $.ajax({
