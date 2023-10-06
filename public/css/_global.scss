@@ -18,6 +18,10 @@ html {
 
 .content {
     width: calc(100vw - 280px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .section-grid-col-2 {

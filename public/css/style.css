@@ -10786,6 +10786,10 @@ html ::-webkit-scrollbar-thumb {
 
 .content {
   width: calc(100vw - 280px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .section-grid-col-2 {
@@ -10977,7 +10981,7 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
 }
 
 .cols-task {
-  min-height: 100%;
+  min-height: 80vh;
 }
 .cols-task .dragTask {
   cursor: grab;

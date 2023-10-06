@@ -33,11 +33,15 @@
     {{ block("sidebar", "_components/sidebar.html.twig") }}
 
     <div class="content text-bg-light">
-        {% if dataStatusbar is defined %}
-            {{ block("statusbar", "_components/statusbar.html.twig") }}
-        {% endif %}
+        <div>
+            {% if dataStatusbar is defined %}
+                {{ block("statusbar", "_components/statusbar.html.twig") }}
+            {% endif %}
 
-        {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
+        </div>
+
+        {{ block("footer", "_components/footer.html.twig") }}
     </div>
 </main>
 
