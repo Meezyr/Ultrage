@@ -4,8 +4,8 @@ $(document).ready(function () {
     let arrayCategory = [];
 
     function addCategory(array) {
-        const valInput = inputCategory.val();
-        const textOnlyRegex = /^[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s'-]+$/;
+        const valInput = inputCategory.val().toLowerCase();
+        const textOnlyRegex = /^[a-zÀ-ÖØ-öø-ÿ0-9\s'-]+$/;
 
         if (textOnlyRegex.test(valInput) && valInput.trim() !== '') {
             if (array.find(e => e === valInput)) {
