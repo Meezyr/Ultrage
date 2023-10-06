@@ -10,7 +10,7 @@ $(document).ready(function () {
             '<div class="card-header text-body-secondary">';
         if (item.category) {
             item.category.forEach((category) => {
-                html += '<span class="badge text-bg-secondary">' + category + '</span>\n'
+                html += '<span class="badge text-bg-secondary">' + category.charAt(0).toUpperCase() + category.slice(1) + '</span>\n'
             });
         }
         html += '</div>' +
@@ -46,7 +46,7 @@ $(document).ready(function () {
 
     function loadDocument(valOrder) {
         $('#listDocument').append('<div class="container-load my-4"><span class="loader"></span></div>');
-        
+
         $.ajax({
             url: '/u-documentation/ordre',
             dataType: "json",
