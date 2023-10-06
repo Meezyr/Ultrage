@@ -43,10 +43,12 @@ $(document).ready(function () {
             data: {slug: slugDoc},
             success: function (data) {
                 data.category.forEach((item) => {
-                    arrayCategory.push(item);
-                    $('#documentation_form_categories').val(arrayCategory);
+                    if (item) {
+                        arrayCategory.push(item);
+                        $('#documentation_form_categories').val(arrayCategory);
 
-                    $('<span class="badge text-bg-info value-category mt-2">' + item + ' <button class="btn-close remove-category" aria-label="Close" data-category="' + item + '"></button></span>').appendTo('.add-category .text-category');
+                        $('<span class="badge text-bg-info value-category mt-2">' + item + ' <button class="btn-close remove-category" aria-label="Close" data-category="' + item + '"></button></span>').appendTo('.add-category .text-category');
+                    }
                 });
             },
             error: function (error) {
