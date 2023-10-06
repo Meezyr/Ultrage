@@ -1,71 +1,75 @@
 .home {
-  .banner-home {
-    position: relative;
+    .banner-home {
+        position: relative;
 
-    h1 {
-      color: $blue-ultrage;
-    }
-
-    p.fs-5 {
-      text-align: justify;
-    }
-
-    .icon-scroll {
-      width: 30px;
-      height: 60px;
-      margin-left: -20px;
-      bottom: 80px;
-      margin-top: -35px;
-      box-shadow: inset 0 0 0 1px #000;
-      border-radius: 25px;
-
-      &, &:before {
-        position: absolute;
-        left: 50%;
-      }
-      &:before {
-        content: '';
-        width: 12px;
-        height: 12px;
-        background: #000;
-        margin-left: -6px;
-        top: 10px;
-        border-radius: 15px;
-        animation-duration: 1.5s;
-        animation-iteration-count: infinite;
-        animation-name: scroll;
-      }
-      @keyframes scroll {
-        0% {
-          opacity: 1;
+        h1 {
+            color: $blue-ultrage;
         }
-        100% {
-          opacity: 0;
-          transform: translateY(33px);
+
+        p.fs-5 {
+            text-align: justify;
         }
-      }
-    }
-  }
 
-  .color-teaser {
-    .card-color {
-      .card-img-top {
-        height: 50px;
-      }
+        .icon-scroll {
+            width: 30px;
+            height: 60px;
+            margin-left: -20px;
+            bottom: 80px;
+            margin-top: -35px;
+            box-shadow: inset 0 0 0 1px #000;
+            border-radius: 25px;
 
-      .zone-date {
-        display: flex;
-        flex-direction: row;
-        justify-content: end;
-      }
-    }
-  }
+            &, &:before {
+                position: absolute;
+                left: 50%;
+            }
 
-  .tools-list {
-    .card-body {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+            &:before {
+                content: '';
+                width: 12px;
+                height: 12px;
+                background: #000;
+                margin-left: -6px;
+                top: 10px;
+                border-radius: 15px;
+                animation-duration: 1.5s;
+                animation-iteration-count: infinite;
+                animation-name: scroll;
+            }
+
+            @keyframes scroll {
+                0% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(33px);
+                }
+            }
+        }
     }
-  }
+
+    .tools-list {
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+
+    .color-teaser {
+        .card-color {
+            .card-img-top {
+                height: 50px;
+            }
+        }
+    }
+
+    .documentation-teaser {
+        .card-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
 }

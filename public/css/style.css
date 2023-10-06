@@ -10913,18 +10913,18 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
     transform: translateY(33px);
   }
 }
-.home .color-teaser .card-color .card-img-top {
-  height: 50px;
-}
-.home .color-teaser .card-color .zone-date {
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-}
 .home .tools-list .card-body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.home .color-teaser .card-color .card-img-top {
+  height: 50px;
+}
+.home .documentation-teaser .card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .img-avatar-profile {
