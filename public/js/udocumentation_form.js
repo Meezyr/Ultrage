@@ -34,13 +34,13 @@ $(document).ready(function () {
 
     // Modifier documentation
     if (window.location.pathname.includes("modifier")) {
-        const idDoc = parseInt(window.location.pathname.slice(40, window.location.pathname.length));
+        const slugDoc = window.location.pathname.slice(40, window.location.pathname.length);
 
         $.ajax({
             url: '/u-documentation/info-documentation',
             dataType: "json",
             type: "GET",
-            data: {id: idDoc},
+            data: {slug: slugDoc},
             success: function (data) {
                 data.category.forEach((item) => {
                     arrayCategory.push(item);

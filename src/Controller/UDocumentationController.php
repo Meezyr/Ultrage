@@ -32,13 +32,10 @@ class UDocumentationController extends AbstractController
 
         $docs = $documentationRepository->findAllByCriteria($criteria);
 
-        $listDocs = [];
+        $nbDocs = count($docs);
+
         $allCategory = [];
         foreach ($docs as $doc) {
-            $listDocs[] = [
-                'id' => $doc->getId(),
-            ];
-
             if (!empty($doc->getCategory())) {
                 foreach ($doc->getCategory() as $category) {
                     if (!in_array(strtolower($category), $allCategory)) {
@@ -50,7 +47,7 @@ class UDocumentationController extends AbstractController
 
         return $this->render('udocumentation/udocumentation.html.twig', [
             'dataStatusbar' => $this->getStatusbar(),
-            'docs' => $listDocs,
+            'nbDocs' => $nbDocs,
             'categories' => $allCategory,
             'criteria' => $criteria
         ]);
@@ -88,11 +85,12 @@ class UDocumentationController extends AbstractController
     {
         $listDocs = [];
 
-        if (!empty($id = $request->query->get('id'))) {
-            $doc = $documentationRepository->find($id);
+        if (!empty($slug = $request->query->get('slug'))) {
+            $doc = $documentationRepository->findOneBy(['slug' => $slug]);
 
             $listDocs = [
                 'id' => $doc->getId(),
+                'slug' => $doc->getSlug(),
                 'title' => $doc->getTitle(),
                 'excerpt' => !empty($doc->getExcerpt()) ? $doc->getExcerpt() : null,
                 'releaseDate' => $doc->getReleaseDate()->format('Y-m-d'),
@@ -134,7 +132,7 @@ class UDocumentationController extends AbstractController
             $entityManager->persist($doc);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_udocumentation');
+            return $this->redirectToRoute('app_udocumentation_view', ['slug' => $doc->getSlug()]);
         }
 
         return $this->render('udocumentation/new_documentation.html.twig', [
@@ -143,7 +141,7 @@ class UDocumentationController extends AbstractController
         ]);
     }
 
-    #[Route('/u-documentation/modifier-documentation/{id}', name: 'app_udocumentation_modify')]
+    #[Route('/u-documentation/modifier-documentation/{slug}', name: 'app_udocumentation_modify')]
     #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
     public function modifyDocumentation(Documentation $documentation, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -162,7 +160,7 @@ class UDocumentationController extends AbstractController
 
                 $entityManager->flush();
 
-                return $this->redirectToRoute('app_udocumentation_view', ['id' => $documentation->getId()]);
+                return $this->redirectToRoute('app_udocumentation_view', ['slug' => $documentation->getSlug()]);
             }
 
             return $this->render('udocumentation/new_documentation.html.twig', [
@@ -186,11 +184,12 @@ class UDocumentationController extends AbstractController
         return $this->redirectToRoute('app_udocumentation_user');
     }
 
-    #[Route('/u-documentation/documentation/{id}', name: 'app_udocumentation_view')]
+    #[Route('/u-documentation/documentation/{slug}', name: 'app_udocumentation_view')]
     public function viewDocumentation(Documentation $documentation): Response
     {
         $doc = [
             'id' => $documentation->getId(),
+            'slug' => $documentation->getSlug(),
             'title' => $documentation->getTitle(),
             'excerpt' => !empty($documentation->getExcerpt()) ? $documentation->getExcerpt() : null,
             'text' => $documentation->getText(),
@@ -233,6 +232,7 @@ class UDocumentationController extends AbstractController
         ]);
     }
 
+
     /**
      * @param array $docs
      * @param array $listDocs
@@ -243,6 +243,7 @@ class UDocumentationController extends AbstractController
         foreach ($docs as $doc) {
             $listDocs[] = [
                 'id' => $doc->getId(),
+                'slug' => $doc->getSlug(),
                 'title' => $doc->getTitle(),
                 'excerpt' => !empty($doc->getExcerpt()) ? $doc->getExcerpt() : null,
                 'releaseDate' => $doc->getReleaseDate()->format('Y-m-d'),

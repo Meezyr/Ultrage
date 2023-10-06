@@ -33,7 +33,7 @@ $(document).ready(function () {
         }
         html += '</p>' +
             '</div>' +
-            '<a href="/u-documentation/documentation/' + item.id + '" class="btn btn-primary stretched-link w-100">En savoir plus</a>' +
+            '<a href="/u-documentation/documentation/' + item.slug + '" class="btn btn-primary stretched-link w-100">En savoir plus</a>' +
             '</div>' +
             '<div class="card-footer text-body-secondary">' +
             '<small class="text-body-secondary">Par ' + item.author + '</small>' +

@@ -47,10 +47,10 @@
                                     </p>
                                 </div>
                                 <div>
-                                    <a href="{{ path('app_udocumentation_view', {'id': doc.id}) }}"
+                                    <a href="{{ path('app_udocumentation_view', {'slug': doc.slug}) }}"
                                        class="btn btn-primary w-100 mb-2">En savoir plus</a>
                                     <div class="d-flex flex-row gap-2">
-                                        <a href="{{ path('app_udocumentation_modify', {'id': doc.id}) }}"
+                                        <a href="{{ path('app_udocumentation_modify', {'slug': doc.slug}) }}"
                                            class="btn btn-warning w-100">Modifier</a>
                                         <a href="{{ path('app_udocumentation_delete', {'id': doc.id}) }}"
                                            class="btn btn-danger w-100">Supprimer</a>
@@ -104,10 +104,10 @@
                                     </p>
                                 </div>
                                 <div>
-                                    <a href="{{ path('app_udocumentation_view', {'id': doc.id}) }}"
+                                    <a href="{{ path('app_udocumentation_view', {'slug': doc.slug}) }}"
                                        class="btn btn-primary w-100 mb-2">En savoir plus</a>
                                     <div class="d-flex flex-row gap-2">
-                                        <a href="{{ path('app_udocumentation_modify', {'id': doc.id}) }}"
+                                        <a href="{{ path('app_udocumentation_modify', {'slug': doc.slug}) }}"
                                            class="btn btn-warning w-100">Modifier</a>
                                         <a href="{{ path('app_udocumentation_delete', {'id': doc.id}) }}"
                                            class="btn btn-danger w-100">Supprimer</a>

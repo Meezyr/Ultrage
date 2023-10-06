@@ -37,8 +37,8 @@
         <div class="row m-0 mb-3">
             <div class="d-flex justify-content-between align-items-center">
                 <p class="resultList fs-3 m-0">
-                    {{ docs|length }} Documentation{{ docs|length > 1 ? 's' : '' }}
-                    correspond{{ docs|length > 1 ? 'ent' : '' }}
+                    {{ nbDocs }} Documentation{{ nbDocs > 1 ? 's' : '' }}
+                    correspond{{ nbDocs > 1 ? 'ent' : '' }}
                 </p>
 
                 <div>
@@ -53,8 +53,6 @@
                 </div>
             </div>
         </div>
-        <div id="listDocument" class="row m-0 mb-4 g-3">
-
-        </div>
+        <div id="listDocument" class="row m-0 mb-4 g-3"></div>
     </section>
 {% endblock %}

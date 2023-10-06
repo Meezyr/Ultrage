@@ -9,16 +9,16 @@
     <section class="px-4 mt-5">
         <div class="row m-0">
             <h2 class="h1">{{ doc.title }}</h2>
+
             {% if doc.excerpt %}
                 <p class="lead m-0">{{ doc.excerpt }}</p>
             {% endif %}
         </div>
     </section>
+
     <section class="px-4 my-4">
         <div class="row m-0">
             <div class="bg-body border rounded p-3">
-
-
                 <div class="d-flex flex-column flex-lg-row justify-content-between">
                     <div>
                         <p class="fs-4">Informations</p>
@@ -70,8 +70,8 @@
 
                     <div class="d-flex flex-column gap-2">
                         <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                            {% if app.user.id == doc.author.id %}
-                                <a href="{{ path('app_udocumentation_modify', {'id': doc.id}) }}"
+                            {% if app.user and app.user.id == doc.author.id %}
+                                <a href="{{ path('app_udocumentation_modify', {'slug': doc.slug}) }}"
                                    class="btn btn-warning">Modifier</a>
                                 <a href="{{ path('app_udocumentation_delete', {'id': doc.id}) }}"
                                    class="btn btn-danger">Supprimer</a>
@@ -84,25 +84,25 @@
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a class="dropdown-item" target="_blank"
-                                           href="https://twitter.com/share?url={{ url('app_udocumentation_view', {'id': doc.id}) }}&text={{ doc.title }}">
+                                           href="https://twitter.com/share?url={{ url('app_udocumentation_view', {'slug': doc.slug}) }}&text={{ doc.title }}">
                                             Partager sur X
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" target="_blank"
-                                           href="https://www.facebook.com/sharer/sharer.php?u={{ url('app_udocumentation_view', {'id': doc.id}) }}">
+                                           href="https://www.facebook.com/sharer/sharer.php?u={{ url('app_udocumentation_view', {'slug': doc.slug}) }}">
                                             Partager sur Facebook
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" target="_blank"
-                                           href="https://www.linkedin.com/shareArticle?mini=true&url={{ url('app_udocumentation_view', {'id': doc.id}) }}">
+                                           href="https://www.linkedin.com/shareArticle?mini=true&url={{ url('app_udocumentation_view', {'slug': doc.slug}) }}">
                                             Partager sur LinkedIn
                                         </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" target="_blank"
-                                           href="mailto:info@example.com?&subject=&body={{ doc.title }}%0A{{ url('app_udocumentation_view', {'id': doc.id}) }}">
+                                           href="mailto:info@example.com?&subject=&body={{ doc.title }}%0A{{ url('app_udocumentation_view', {'slug': doc.slug}) }}">
                                             Partager par mail
                                         </a>
                                     </li>
