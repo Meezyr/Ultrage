@@ -80,6 +80,17 @@ class DocumentationRepository extends ServiceEntityRepository
         return $query->execute();
     }
 
+    public function findFourOrderByDate($order): array
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.release_date', $order)
+            ->where('d.publish = TRUE')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
 //    /**
 //     * @return Documentation[] Returns an array of Documentation objects
 //     */

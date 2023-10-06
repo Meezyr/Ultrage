@@ -39,7 +39,7 @@ class ColorRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllOrderByDate($order): array
+    public function findFourOrderByDate($order): array
     {
         return $this->createQueryBuilder('c')
             ->orderBy('c.creationDate', $order)
