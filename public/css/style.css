@@ -11050,6 +11050,11 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
 .contenu-documentation code {
   color: #dc3545;
 }
+.contenu-documentation .banniere-documentation {
+  margin: 0 0 1.5rem 0;
+  width: 100%;
+  border-radius: 8px;
+}
 
 .error-page img {
   width: 100px;
