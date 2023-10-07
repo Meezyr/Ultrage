@@ -8,7 +8,7 @@
 {% block body %}
     <section class="px-4 mt-5">
         <div class="row m-0">
-            <h2 class="h1">{{ doc.title }}</h2>
+            <h2 class="h1"><strong>{{ doc.title }}</strong></h2>
 
             {% if doc.excerpt %}
                 <p class="lead m-0">{{ doc.excerpt }}</p>
@@ -62,7 +62,7 @@
                                     <img src="{{ doc.author.avatar ? asset('img/avatar/' ~ doc.author.avatar) : asset('img/default_profile.jpg') }}"
                                          alt="Photo de profil de l'auteur de la documentation"
                                          class="img-avatar-sidebar rounded-circle">
-                                    <strong>{{ doc.author.pseudo|capitalize }}</strong>
+                                    <strong>{{ doc.author.pseudo }}</strong>
                                 </p>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
     </section>
     <section class="px-4 mb-5">
         <div class="row m-0">
-            <div class="contenu">
+            <div class="contenu-documentation">
                 {{ doc.text|raw }}
             </div>
 

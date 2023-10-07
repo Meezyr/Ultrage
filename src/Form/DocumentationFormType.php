@@ -35,6 +35,7 @@ class DocumentationFormType extends AbstractType
                     "toolbar" => "undo redo | bold italic underline | styles | alignleft aligncenter alignright alignjustify | bullist numlist",
                     "plugins" => "autolink link image table quickbars pagebreak lists advlist charmap preview wordcount searchreplace emoticons anchor",
                     "quickbars_insert_toolbar" => "quicktable quicklink hr pagebreak",
+                    "height" => "650",
                 ],
             ])
             ->add('publish', ChoiceType::class, [

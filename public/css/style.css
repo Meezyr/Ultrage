@@ -11029,6 +11029,28 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
   display: block;
 }
 
+.contenu-documentation h2, .contenu-documentation .h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+.contenu-documentation h3, .contenu-documentation .h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+.contenu-documentation pre {
+  margin: 1rem 0;
+  padding: 1.5rem;
+  background-color: #343a40;
+  color: #fff;
+  border-radius: calc(var(--bs-border-radius) - 1px);
+  border: 1.5px solid #212529;
+}
+.contenu-documentation code {
+  color: #dc3545;
+}
+
 .error-page img {
   width: 100px;
 }
