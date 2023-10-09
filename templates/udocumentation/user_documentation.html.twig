@@ -23,7 +23,7 @@
                             <div class="card-header text-body-secondary">
                                 {% if doc.category %}
                                     {% for category in doc.category %}
-                                        <span class="badge text-bg-secondary">{{ category }}</span>
+                                        <span class="badge text-bg-secondary">{{ category|capitalize }}</span>
                                     {% endfor %}
                                 {% endif %}
                             </div>
