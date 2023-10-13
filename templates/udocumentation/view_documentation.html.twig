@@ -23,10 +23,10 @@
                     <div>
                         <p class="fs-4">Informations</p>
 
-                        <div class="d-flex gap-5">
+                        <div class="d-flex flex-wrap flex-xxl-nowrap gap-2 gap-xxl-4 me-2 mb-2 mb-xxl-0">
                             <div class="d-flex">
                                 <i class="bi bi-clock me-2"></i>
-                                <p class="m-0">
+                                <p class="m-0 text-nowrap">
                                     Date de publication :
                                     <strong>
                                         <time datetime="{{ doc.releaseDate }}">{{ doc.releaseDateLong }}</time>
@@ -37,7 +37,8 @@
                             {% if doc.updateDate %}
                                 <div class="d-flex">
                                     <i class="bi bi-wrench-adjustable-circle me-2"></i>
-                                    <p class="m-0">Date de modification :
+                                    <p class="m-0 text-nowrap">
+                                        Date de modification :
                                         <strong>
                                             <time datetime="{{ doc.updateDate }}">{{ doc.updateDateLong }}</time>
                                         </strong>
@@ -57,7 +58,7 @@
 
                             <div class="d-flex">
                                 <i class="bi bi-person-check me-2"></i>
-                                <p class="m-0">
+                                <p class="m-0 text-nowrap">
                                     Auteur :
                                     <img src="{{ doc.author.avatar ? asset('img/avatar/' ~ doc.author.avatar) : asset('img/default_profile.jpg') }}"
                                          alt="Photo de profil de l'auteur de la documentation"
