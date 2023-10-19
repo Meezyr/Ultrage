@@ -116,7 +116,7 @@
                                  style="background: {{ color.colorCode }}"></div>
                             <div class="card-body">
                                 <p class="card-text zone-date text-end">
-                                    <span class="badge rounded-pill text-bg-info">{{ color.creationDate|format_date('long', locale='fr') }}</span>
+                                    <span class="badge rounded-pill text-bg-secondary">{{ color.creationDate|format_date('long', locale='fr') }}</span>
                                 </p>
                                 {% if color.userAuthor %}
                                     <h5 class="card-title pb-2">
@@ -157,7 +157,7 @@
                         <div class="card card-color">
                             <div class="card-body">
                                 <p class="card-text zone-date text-end">
-                                    <span class="badge rounded-pill text-bg-info">{{ doc.releaseDate|format_date('long', locale='fr') }}</span>
+                                    <span class="badge rounded-pill text-bg-secondary">{{ doc.releaseDate|format_date('long', locale='fr') }}</span>
                                 </p>
                                 <h5 class="card-title mb-3">{{ doc.title }}</h5>
                                 {% if doc.author %}
@@ -166,12 +166,14 @@
                                         {{ doc.author.pseudo|capitalize }}
                                     </p>
                                 {% endif %}
-                                <p class="card-text">
-                                    <strong>Catégories : </strong>
-                                    {{ doc.category|map(k => "#{k|capitalize}")|join(', ') }}
-                                </p>
+                                {% if doc.category != [""] %}
+                                    <p class="card-text m-0">
+                                        <strong>Catégories : </strong>
+                                        {{ doc.category|map(k => "#{k|capitalize}")|join(', ') }}
+                                    </p>
+                                {% endif %}
                                 <a href="{{ path('app_udocumentation_view', {'slug': doc.slug}) }}"
-                                   class="btn btn-primary stretched-link w-100">
+                                   class="btn btn-primary stretched-link w-100 mt-3">
                                     <i class="bi bi-folder"></i> Voir la documentation
                                 </a>
                             </div>
