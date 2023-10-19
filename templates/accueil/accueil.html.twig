@@ -8,12 +8,12 @@
                 <div class="col-6 d-flex flex-column justify-content-between">
                     <h1 class="display-2 text-uppercase fw-bolder text-center">Ultrage</h1>
 
-                    <p class="h3 text-secondary mt-5 text-center fw-medium">
+                    <p class="h3 mt-5 text-center fw-semibold">
                         Ultrage est un outil polyvalent pour la création web pour l'amélioration de la productivité et
                         de la créativité des professionnels et amateurs du web.
                     </p>
 
-                    <p class="text-dark fs-5 fw-light mt-4 px-2">
+                    <p class="fs-5 fw-light mt-4 px-2">
                         Ultrage réunit une multitude de fonctionnalités essentielles pour le web, avec son ensemble
                         d'outils intégrés, telles qu'un gestionnaire de couleurs, un tableau des tâches, une
                         bibliothèque de ressources et bien plus encore. De plus, Ultrage en intégrant ces différents
@@ -130,7 +130,7 @@
                                     {{ color.keyword|map(k => "#{k|capitalize}")|join(', ') }}
                                 </p>
                                 <a href="{{ path('app_ucouleur', {'code': color.colorCode}) }}"
-                                   class="btn btn-outline-secondary stretched-link w-100">
+                                   class="btn btn-primary stretched-link w-100">
                                     <i class="bi bi-palette"></i> Voir la couleur
                                 </a>
                             </div>
@@ -171,7 +171,7 @@
                                     {{ doc.category|map(k => "#{k|capitalize}")|join(', ') }}
                                 </p>
                                 <a href="{{ path('app_udocumentation_view', {'slug': doc.slug}) }}"
-                                   class="btn btn-outline-secondary stretched-link w-100">
+                                   class="btn btn-primary stretched-link w-100">
                                     <i class="bi bi-folder"></i> Voir la documentation
                                 </a>
                             </div>

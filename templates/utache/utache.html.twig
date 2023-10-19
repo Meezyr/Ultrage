@@ -21,7 +21,7 @@
                          class="w-100 h-100 p-2" data-nb="{{ i }}">
                         {% if tasks[i] is defined %}
                             {% for task in tasks[i] %}
-                                <div class="dragTask w-100 px-2 pt-2 pb-4 mb-3 position-relative text-white bg-primary bg-gradient rounded-2 overflow-hidden"
+                                <div class="dragTask w-100 px-2 pt-2 pb-4 mb-3 position-relative text-white bg-gradient rounded-2 overflow-hidden"
                                      data-id="{{ task.id }}" data-status="{{ task.status }}">
                                     <p class="fs-5 mb-2">{{ task.title|capitalize }}</p>
 
@@ -41,12 +41,12 @@
 
                                     <div class="btn-group-vertical position-absolute top-0 end-0" role="group"
                                          aria-label="Boutons d'action de la tâche">
-                                        <button type="button" class="comment-task btn btn-success px-2 py-1"
+                                        <button type="button" class="comment-task btn btn-primary px-2 py-1"
                                                 data-bs-toggle="modal" data-bs-target="#commentModal"
                                                 data-id-task="{{ task.id }}">
                                             <i class="bi bi-chat-square-text"></i>
                                         </button>
-                                        <a class="edit-task btn btn-success px-2 py-1"
+                                        <a class="edit-task btn btn-primary px-2 py-1"
                                            href="{{ path('app_utache_modify', {'id': task.id}) }}">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>

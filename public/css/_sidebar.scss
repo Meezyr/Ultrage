@@ -12,6 +12,19 @@
         width: 32px;
         height: 32px;
     }
+
+    nav {
+        .nav-link {
+            transition: all 0.5s ease;
+
+            &:hover {
+                background-color: shade-color($primary, 55%);
+            }
+            &.active:hover {
+                background-color: $primary;
+            }
+        }
+    }
 }
 
 .img-avatar-sidebar {

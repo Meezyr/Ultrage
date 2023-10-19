@@ -20,7 +20,7 @@
             <div class="input-group">
                 <span class="input-group-text" id="label-category">Catégories</span>
                 <input type="text" class="form-control" placeholder="Nom de la catégorie" aria-label="Catégories" aria-describedby="label-category" name="category" id="category">
-                <button class="btn btn-outline-secondary button-category" type="button">Ajouter</button>
+                <button class="btn btn-success button-category" type="button">Ajouter</button>
             </div>
         </div>
 
@@ -49,7 +49,7 @@
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
 
-            <a href="{{ path("app_udocumentation_user") }}" title="Annuler" class="btn btn-outline-danger mt-3 w-100">Annuler</a>
+            <a href="{{ path("app_udocumentation_user") }}" title="Annuler" class="btn btn-secondary mt-3 w-100">Annuler</a>
 
             {{ form_widget(newDocumentationForm.categories) }}
         {{ form_end(newDocumentationForm) }}

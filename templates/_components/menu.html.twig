@@ -6,7 +6,7 @@
         {'link': 'app_udocumentation', 'title': 'U-Documentation', 'icon' : 'bi-folder'}
     ] %}
 
-    <ul class="nav nav-pills flex-column">
+    <ul class="nav nav-pills flex-column gap-1">
         {% for key, infoMenu in infosMenu %}
             <li class="nav-item">
                 <a href="{{ path(infoMenu.link) }}"
