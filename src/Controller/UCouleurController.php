@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Color;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,7 +16,7 @@ use App\Repository\ColorRepository;
 class UCouleurController extends AbstractController
 {
     #[Route('/u-couleur/{code?null}', name: 'app_ucouleur')]
-    public function index(string $code,ManagerRegistry $doctrine, UserRepository $userRepository, ColorRepository $colorRepository): Response
+    public function index(string $code, ManagerRegistry $doctrine, UserRepository $userRepository, ColorRepository $colorRepository): Response
     {
         $couleurs = [];
 
@@ -36,32 +38,24 @@ class UCouleurController extends AbstractController
         ]);
     }
 
-    #[Route('/u-couleur/addcolor', name: 'app_ucouleur_add_color')]
-    public function addColor(EntityManagerInterface $entityManager, UserRepository $userRepository, ColorRepository $colorRepository): Response
+    #[Route('/color/addcolor', name: 'app_ucouleur_add_color')]
+    #[IsGranted('IS_AUTHENTICATED_REMEMBERED')]
+    public function addColor(EntityManagerInterface $entityManager): JsonResponse
     {
-        if ($this->getUser() != null) {
-            $colorCode = $_POST['colorCode'];
-            $arrayKeyword = $_POST['arrayKeyword'];
+        $colorCode = $_POST['colorCode'];
+        $arrayKeyword = $_POST['arrayKeyword'];
 
-            $keyword = array_merge($arrayKeyword);
+        $keyword = array_merge($arrayKeyword);
 
-            $userAuthor = $userRepository->find($this->getUser()->getId());
+        $color = new Color();
+        $color->setColorCode($colorCode);
+        $color->setCreationDate(new \DateTime());
+        $color->setUserAuthor($this->getUser());
+        $color->setKeyword($keyword);
 
-            //Finir le fonction de palettes
-//            $couleursPaletteNumber = $colorRepository->findBy(['userAuthor' => $userAuthor], ['paletteNumber' => 'DESC']);
-//            $paletteNumber = $couleursPaletteNumber[0]->getPaletteNumber();
+        $entityManager->persist($color);
+        $entityManager->flush();
 
-            $color = new Color();
-//            $color->setPaletteNumber($paletteNumber);
-            $color->setColorCode($colorCode);
-            $color->setCreationDate(new \DateTime());
-            $color->setUserAuthor($this->getUser());
-            $color->setKeyword($keyword);
-
-            $entityManager->persist($color);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_ucouleur');
+        return $this->json([$arrayKeyword, $colorCode]);
     }
 }

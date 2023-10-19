@@ -178,7 +178,8 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: '/u-couleur/addcolor',
+            dataType: "json",
+            url: '/color/addcolor',
             data: {colorCode: colorCode, arrayKeyword: keywords}
         }).done(function (msg) {
             location.reload();
