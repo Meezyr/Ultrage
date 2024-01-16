@@ -3,6 +3,7 @@
 {% block title %}U-Documentation{% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('js/udocumentation_single.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -115,6 +116,34 @@
             </div>
         </div>
     </section>
+    {% if doc.summary %}
+        <section class="px-4 my-4 section-sommaire">
+            <div class="row m-0">
+                <div class="bg-body border rounded p-3 box-sommaire">
+                    <div class="d-flex flex-column justify-content-between h-100">
+                        <p class="fs-4">Sommaire</p>
+                        <ul>
+                            {% for title in doc.summary %}
+                                <li class="summary-title">
+                                    <a class="link-primary" href="#{{ title.text }}">{{ title.text }}</a>
+                                    {% if title.child %}
+                                        <ul>
+                                            {% for subtitle in title.child %}
+                                                <li class="summary-subtitle">
+                                                    <a class="link-secondary"
+                                                       href="#{{ subtitle.text }}">{{ subtitle.text }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
     <section class="px-4 mb-5">
         <div class="row m-0">
             <div class="contenu-documentation">

@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\DomCrawler\Crawler;
 
 class UDocumentationController extends AbstractController
 {
@@ -187,12 +188,27 @@ class UDocumentationController extends AbstractController
     #[Route('/u-documentation/documentation/{slug}', name: 'app_udocumentation_view')]
     public function viewDocumentation(Documentation $documentation): Response
     {
+        $crawler = new Crawler($documentation->getText());
+        $crawlerTitles = $crawler->filter('h2, h3')->each(function (Crawler $node, $i): array {
+            return ['node' => $node->nodeName(), 'text' => $node->text()];
+        });
+
+        $summary = [];
+        foreach ($crawlerTitles as $crawlerTitle) {
+            if ($crawlerTitle['node'] == 'h2') {
+                $summary[] = ['text' => $crawlerTitle['text'], 'child' => []];
+            } elseif ($crawlerTitle['node'] == 'h3') {
+                $summary[array_key_last($summary)]['child'][] = ['text' => $crawlerTitle['text']];
+            }
+        }
+
         $doc = [
             'id' => $documentation->getId(),
             'slug' => $documentation->getSlug(),
             'title' => $documentation->getTitle(),
             'excerpt' => !empty($documentation->getExcerpt()) ? $documentation->getExcerpt() : null,
             'text' => $documentation->getText(),
+            'summary' => $summary,
             'releaseDate' => $documentation->getReleaseDate()->format('Y-m-d'),
             'releaseDateLong' => $documentation->getReleaseDate()->format('d/m/Y à H:i'),
             'updateDate' => !empty($documentation->getUpdateDate()) ? $documentation->getUpdateDate()->format('Y-m-d') : null,
