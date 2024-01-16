@@ -16,15 +16,27 @@
     }
 }
 
+.section-sommaire {
+    .box-sommaire {
+        max-height: 400px;
+
+        ul {
+            width: 100%;
+            overflow: auto;
+            margin: 0;
+        }
+    }
+}
+
 .contenu-documentation {
     h2 {
-        margin-top: 2rem;
-        margin-bottom: 1rem;
+        padding-top: 3rem;
+        margin: 0 0 1.5rem 0;
         font-size: 1.5rem;
     }
     h3 {
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
+        padding-top: 3rem;
+        margin: 0 0 1.5rem 0;
         font-size: 1.25rem;
     }
     pre {

@@ -107,6 +107,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/intl-extra" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/scienta/doctrine-json-functions" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/eckinox/tinymce-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/css-selector" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
