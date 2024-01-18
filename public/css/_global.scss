@@ -20,6 +20,7 @@ html {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 .section-grid-col-2 {
@@ -60,4 +61,12 @@ html {
             }
         }
     }
+}
+
+.toast-notif {
+    width: auto;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    translate: -50% 0;
 }

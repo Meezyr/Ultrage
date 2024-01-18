@@ -10790,6 +10790,7 @@ html ::-webkit-scrollbar-thumb {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
 .section-grid-col-2 {
@@ -10827,6 +10828,14 @@ html ::-webkit-scrollbar-thumb {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.toast-notif {
+  width: auto;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  translate: -50% 0;
 }
 
 .sidebar {
@@ -11062,6 +11071,34 @@ input[type=checkbox], input[type=radio], input[type=date], .form-check-label, .i
   padding-top: 3rem;
   margin: 0 0 1.5rem 0;
   font-size: 1.25rem;
+}
+.contenu-documentation h2 strong, .contenu-documentation .h2 strong, .contenu-documentation h3 strong, .contenu-documentation .h3 strong {
+  padding-left: 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+.contenu-documentation h2 strong::before, .contenu-documentation .h2 strong::before, .contenu-documentation h3 strong::before, .contenu-documentation .h3 strong::before {
+  content: "";
+  height: 0;
+  width: 0;
+  background-image: url("../img/svg/anchor.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.contenu-documentation h2 strong:hover, .contenu-documentation .h2 strong:hover, .contenu-documentation h3 strong:hover, .contenu-documentation .h3 strong:hover {
+  padding-left: 32px;
+}
+.contenu-documentation h2 strong:hover::before, .contenu-documentation .h2 strong:hover::before, .contenu-documentation h3 strong:hover::before, .contenu-documentation .h3 strong:hover::before {
+  height: 28px;
+  width: 28px;
+  opacity: 1;
 }
 .contenu-documentation pre {
   margin: 1rem 0;
