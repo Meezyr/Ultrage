@@ -32,9 +32,9 @@ class DocumentationFormType extends AbstractType
                 "attr" => [
                     "selector" => "textarea",
                     "menubar" => "file edit insert format table tools",
-                    "toolbar" => "undo redo | bold italic underline | styles | alignleft aligncenter alignright alignjustify | bullist numlist",
-                    "plugins" => "autolink link image table quickbars pagebreak lists advlist charmap preview wordcount searchreplace emoticons anchor",
-                    "quickbars_insert_toolbar" => "quicktable quicklink hr pagebreak",
+                    "toolbar" => "undo redo | bold italic underline | styles | alignleft aligncenter alignright alignjustify | bullist numlist | codesample",
+                    "plugins" => "autolink link image table quickbars pagebreak lists advlist charmap preview wordcount searchreplace emoticons anchor code codesample",
+                    "quickbars_insert_toolbar" => "quicktable quicklink | hr pagebreak",
                     "height" => "650",
                 ],
             ])
