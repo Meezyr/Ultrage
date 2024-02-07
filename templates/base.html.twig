@@ -28,6 +28,21 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
+
+    <!-- Set SEO -->
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "Organization",
+            "name": "Ultrage",
+            "logo": "https://ultrage.meezyr.fr/img/favicon.png",
+            "url": "https://ultrage.meezyr.fr",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "France"
+            }
+        }
+    </script>
 </head>
 
 <body class="h-100">
