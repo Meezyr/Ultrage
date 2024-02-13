@@ -10788,6 +10788,14 @@ html ::-webkit-scrollbar-thumb {
   translate: -50% 0;
 }
 
+.h1-hidden {
+  text-indent: -9999px;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+  clip-path: circle(1px);
+}
+
 .sidebar {
   width: 280px;
   height: 100vh;

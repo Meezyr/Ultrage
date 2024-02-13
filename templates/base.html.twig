@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 
 {% set titrePage = block("title") %}
+{% set descriptionPage = block("seoDescription") %}
 
 <html lang="fr" class="h-100">
 <head>
     <!-- Balises meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content= "width=device-width, initial-scale=1.0">
-    <meta name="title" content="ULTRAGE">
-    <meta property="og:title" content="ULTRAGE">
+    <meta name="title" content="{{ titrePage }}{{ titrePage ? ' - ULTRAGE' : 'ULTRAGE, plateforme avec de multiples outils utiles à la création web.' }}">
+    <meta property="og:title" content="{{ titrePage }}{{ titrePage ? ' - ULTRAGE' : 'ULTRAGE, plateforme avec de multiples outils utiles à la création web.' }}">
     <meta name="description"
-          content="Ultrage est un outil polyvalent pour la création web pour l'amélioration de la productivité et de la créativité des professionnels et amateurs du web.">
+          content="{% block seoDescription %}Ultrage est un outil polyvalent pour la création web pour l'amélioration de la productivité et de la créativité des professionnels et amateurs du web.{% endblock %}">
     <meta name="og:description"
-          content="Ultrage est un outil polyvalent pour la création web pour l'amélioration de la productivité et de la créativité des professionnels et amateurs du web.">
+          content="{{ descriptionPage }}">
     <meta name="keywords"
           content="ultrage, utache, ucouleur, couleur, gestion, tache, tableau de bord, web, outils, créativité, productivité, création">
     <meta name="robots" content="index">
@@ -20,8 +21,8 @@
     <meta property="og:image" content="{{ asset('img/favicon.png') }}">
 
     <!-- Set title & favicon -->
-    <title>{% block title %}Tableau de bord{% endblock %} - ULTRAGE</title>
-    <link rel="icon" href="{{ asset('img/favicon.png') }}">
+    <title>{% block title %}{% endblock %}{{ titrePage ? ' - ULTRAGE' : 'ULTRAGE, plateforme avec de multiples outils utiles à la création web.' }}</title>
+    <link rel="icon" href="{{ asset('img/favicon.ico') }}">
 
     <!-- Import styles -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -30,19 +31,8 @@
     {% endblock %}
 
     <!-- Set SEO -->
-    <script type="application/ld+json">
-        {
-            "@context": "http://schema.org/",
-            "@type": "Organization",
-            "name": "Ultrage",
-            "logo": "https://ultrage.meezyr.fr/img/favicon.png",
-            "url": "https://ultrage.meezyr.fr",
-            "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "France"
-            }
-        }
-    </script>
+    {% block seoPage %}{% endblock %}
+    {% block seoBreadcrumb %}{% endblock %}
 </head>
 
 <body class="h-100">

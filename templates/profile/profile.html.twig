@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil{% endblock %}
+{% set titreOutil = 'Profil' %}
+
+{% block title %}{{ titreOutil }}{% endblock %}
+
+{% block seoDescription %}Accédez au profil de votre compte Ultrage afin de consulter l'ensemble du contenu que vous avez créé.{% endblock %}
 
 {% block body %}
+    <h1 class="h1-hidden">{{ titreOutil }}</h1>
 
     <section class="form-register w-50 m-auto py-5">
         {% if user.avatar %}

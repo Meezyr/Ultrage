@@ -1,12 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}U-Mot De Passe{% endblock %}
+{% set titreOutil = 'U-Mot De Passe' %}
+
+{% block title %}{{ titreOutil }}{% endblock %}
+
+{% block seoDescription %}U-Mot De Passe est un outil de génération de manières aléatoires de mots de passe sur le site Ultrage.{% endblock %}
+
+{% block seoBreadcrumb %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ultrage",
+                "item": "https://ultrage.meezyr.fr/"
+            },{
+                "@type": "ListItem",
+                "position": 2,
+                "name": "U-Mot de passe"
+            }]
+        }
+    </script>
+{% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/umotdepasse.js') }}"></script>
 {% endblock %}
 
 {% block body %}
+    <h1 class="h1-hidden">{{ titreOutil }}</h1>
+
     <section class="w-50 m-auto py-5">
         <div class="row m-0">
             <h2 class="mb-5">Générateur de mot de passe</h2>

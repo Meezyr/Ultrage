@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}U-Tâche{% endblock %}
+{% set titreOutil = 'U-Tâche' %}
+
+{% block title %}Créer une tâche{% endblock %}
+
+{% block seoDescription %}Créez de nouvelles tâches afin de les ajouter à votre planning sur le site Ultrage.{% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/utache_form.js') }}"></script>

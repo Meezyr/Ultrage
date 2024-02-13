@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}U-Documentation{% endblock %}
+{% set titreOutil = 'U-Documentation' %}
+
+{% block title %}Créer une documentation{% endblock %}
+
+{% block seoDescription %}Partagez votre savoir en créant une documentation sur un outil où vous avez des compétences sur le site Ultrage.{% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('js/udocumentation_form.js') }}"></script>

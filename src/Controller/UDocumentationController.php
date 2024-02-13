@@ -209,9 +209,9 @@ class UDocumentationController extends AbstractController
             'excerpt' => !empty($documentation->getExcerpt()) ? $documentation->getExcerpt() : null,
             'text' => $documentation->getText(),
             'summary' => $summary,
-            'releaseDate' => $documentation->getReleaseDate()->format('Y-m-d'),
+            'releaseDate' => $documentation->getReleaseDate()->format('c'),
             'releaseDateLong' => $documentation->getReleaseDate()->format('d/m/Y à H:i'),
-            'updateDate' => !empty($documentation->getUpdateDate()) ? $documentation->getUpdateDate()->format('Y-m-d') : null,
+            'updateDate' => !empty($documentation->getUpdateDate()) ? $documentation->getUpdateDate()->format('c') : null,
             'updateDateLong' => !empty($documentation->getUpdateDate()) ? $documentation->getUpdateDate()->format('d/m/Y à H:i') : null,
             'category' => !empty($documentation->getExcerpt()) ? implode(", ", $documentation->getCategory()) : null,
             'author' => [

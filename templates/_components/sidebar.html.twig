@@ -3,11 +3,13 @@
 
     <aside class="sidebar position-relative">
         <div class="fixed-sidebar d-flex flex-column position-fixed top-0 start-0 text-bg-dark p-3">
-            <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-               href="{{ path('app_accueil') }}">
+            <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto position-relative">
                 <img class="img-sidebar pe-none me-2" src="{{ asset('img/favicon.png') }}" alt="Logo Ultrage">
-                <span class="fs-4">Ultrage</span>
-            </a>
+                <a class="fs-4 stretched-link text-white text-decoration-none"
+                   href="{{ path('app_accueil') }}">
+                    Ultrage
+                </a>
+            </div>
             <hr>
             <nav class="mb-auto">
                 {{ block("menu", "_components/menu.html.twig") }}

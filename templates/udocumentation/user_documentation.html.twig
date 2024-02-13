@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}U-Documentation{% endblock %}
+{% set titreOutil = 'U-Documentation' %}
 
-{% block javascripts %}
-{% endblock %}
+{% block title %}Mes documentations{% endblock %}
+
+{% block seoDescription %}Consultez l'ensemble des documentations que vous avez créé sur le site Ultrage, même celles que vous n'avez pas encore publié.{% endblock %}
 
 {% block body %}
+    <h1 class="h1-hidden">{{ titreOutil }}</h1>
+
     {% if docs.notPublish %}
         <section class="px-4 my-5">
             <div class="row m-0 mb-3">

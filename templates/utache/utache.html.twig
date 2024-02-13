@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}U-Tâche{% endblock %}
+{% set titreOutil = 'U-Tâche' %}
+
+{% block title %}{{titreOutil}}{% endblock %}
+
+{% block seoDescription %}U-Tâche est un outil qui permet la gestion et la création de tâches dans un planning sur le site Ultrage.{% endblock %}
 
 {% block javascripts %}
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
@@ -9,6 +13,8 @@
 {% endblock %}
 
 {% block body %}
+    <h1 class="h1-hidden">{{ titreOutil }}</h1>
+
     <section id="taskBoard" class="px-4 py-5 h-100">
         <div class="row m-0 cols-task gap-3">
 

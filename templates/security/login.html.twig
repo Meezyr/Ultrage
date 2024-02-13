@@ -2,6 +2,27 @@
 
 {% block title %}S'identifier{% endblock %}
 
+{% block seoDescription %}Connectez-vous à votre compte sur le site Ultrage afin de pouvoir utiliser la totalité des outils disponibles.{% endblock %}
+
+{% block seoBreadcrumb %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ultrage",
+                "item": "https://ultrage.meezyr.fr/"
+            },{
+                "@type": "ListItem",
+                "position": 2,
+                "name": "S'indentifier"
+            }]
+        }
+    </script>
+{% endblock %}
+
 {% block body %}
     <section class="form-login w-50 m-auto py-5">
         <form method="post">
