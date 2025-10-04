@@ -8,8 +8,12 @@
 /public/bundles/
 /var/
 /vendor/
+/node_modules/
+/composer.lock
+/symfony.lock
 ###< symfony/framework-bundle ###
 /migrations/
 /symfony.exe
 /public/img/avatar/*
 /public/img/share/*
+/.idea/
