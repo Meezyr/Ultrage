@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% set titreOutil = 'U-Lien' %}
+
+{% block title %}Mes liens{% endblock %}
+
+{% block seoDescription %}Consultez l'ensemble des liens utiles que vous avez créé sur le site Ultrage.{% endblock %}
+
+{% block body %}
+    <h1 class="h1-hidden">{{ titreOutil }}</h1>
+
+    <section class="px-4 my-5">
+        <div class="row m-0 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="resultList fs-3 m-0">
+                    {{ links|length }} Lien{{ links|length > 1 ? 's' : '' }}
+                    publié{{ links|length > 1 ? 's' : '' }}
+                </p>
+            </div>
+        </div>
+        <div id="listLink" class="row m-0 g-3">
+            {% for link in links %}
+                <div class="col-4">
+                    <div class="card h-100">
+                        <div class="card-header text-body-secondary">
+                            {% if link.categories %}
+                                {% for category in link.categories %}
+                                    <span class="badge text-bg-secondary">{{ category|capitalize }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-between gap-4">
+                            <div class="texts-card">
+                                <h5 class="card-title"><strong>{{ link.title }}</strong></h5>
+                                {% if link.description %}
+                                    <p class="card-text">{{ link.description }}</p>
+                                {% endif %}
+                                <p class="card-text">
+                                    <small class="text-body-secondary me-3">
+                                        <i class="bi bi-clock me-1"></i>
+                                        <time datetime="{{ link.releaseDate }}">{{ link.releaseDateLong }}</time>
+                                    </small>
+                                    {% if link.updateDate %}
+                                        <small class="text-body-secondary">
+                                            <i class="bi bi-wrench-adjustable-circle me-1"></i>
+                                            <time datetime="{{ link.updateDate }}">{{ link.updateDateLong }}</time>
+                                        </small>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div>
+                                <a href="{{ link.url }}" target="_blank"
+                                   class="btn btn-primary w-100 mb-2">Consulter</a>
+                                <div class="d-flex flex-row gap-2">
+                                    <a href="{{ path('app_ulien_modify', {'id': link.id}) }}"
+                                       class="btn btn-warning w-100">Modifier</a>
+                                    <a href="{{ path('app_ulien_delete', {'id': link.id}) }}"
+                                       class="btn btn-danger w-100">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

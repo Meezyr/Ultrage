@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% set titreOutil = 'U-Lien' %}
+
+{% block title %}Créer un lien{% endblock %}
+
+{% block seoDescription %}Partagez vos ressources en créant une lien rapide menant à un outil sur le site Ultrage.{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/ulien_form.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
+    <section id="newLink" class="w-50 m-auto py-5">
+        <h1 class="h3 mb-5 fw-normal">
+            Saisissez les informations pour
+            {{ currentPath == '/u-lien/nouvelle-lien' ? 'créer un nouveau' : 'modifier le' }}
+            lien
+        </h1>
+
+        <div class="add-category mb-4">
+            <div class="input-group">
+                <span class="input-group-text" id="label-category">Catégories</span>
+                <input type="text" class="form-control" placeholder="Nom de la catégorie" aria-label="Catégories" aria-describedby="label-category" name="category" id="category">
+                <button class="btn btn-success button-category" type="button">Ajouter</button>
+            </div>
+        </div>
+
+        {{ form_start(newLinkForm) }}
+            {{ form_errors(newLinkForm) }}
+
+            <div class="form-floating mb-4">
+                {{ form_widget(newLinkForm.title, {'attr': {'placeholder': 'Titre', 'class': 'form-control', 'autofocus': 'autofocus'}}) }}
+                {{ form_label(newLinkForm.title) }}
+            </div>
+
+            <div class="form-floating mb-4">
+                {{ form_widget(newLinkForm.description, {'attr': {'placeholder': 'Description', 'class': 'form-control'}}) }}
+                {{ form_label(newLinkForm.description) }}
+            </div>
+
+            <div class="form-floating mb-4">
+                {{ form_widget(newLinkForm.url, {'attr': {'placeholder': 'Lien', 'class': 'form-control'}}) }}
+                {{ form_label(newLinkForm.url) }}
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Enregistrer</button>
+
+            <a href="{{ path("app_ulien_user") }}" title="Annuler" class="btn btn-secondary mt-3 w-100">Annuler</a>
+
+            {{ form_widget(newLinkForm.categories) }}
+        {{ form_end(newLinkForm) }}
+    </section>
+{% endblock %}

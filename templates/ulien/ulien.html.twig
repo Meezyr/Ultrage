@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% set titreOutil = 'U-Lien' %}
+
+{% block title %}{{ titreOutil }}{% endblock %}
+
+{% block seoDescription %}U-Lien est un outil qui permet de centraliser de multiples liens utiles sur le site Ultrage.{% endblock %}
+
+{% block seoBreadcrumb %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Ultrage",
+                "item": "https://ultrage.meezyr.fr/"
+            },{
+                "@type": "ListItem",
+                "position": 2,
+                "name": "U-Lien"
+            }]
+        }
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/ulien.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <h1 class="h1-hidden">{{ titreOutil }}</h1>
+
+    <section class="px-4 py-5">
+        <div class="row m-0 mb-5">
+            <div class="bg-body border rounded p-3">
+                <form id="filter_link" role="search" action="">
+                    <p class="fs-4">Filtrer le lien par :</p>
+
+                    <div class="d-flex gap-3">
+                        <input class="form-control mb-3" type="search" placeholder="Rechercher"
+                               aria-label="Effectuer une recherche" name="recherche" id="search" value="{{ criteria.search is defined ? criteria.search : '' }}">
+
+                        {% if categories is not empty %}
+                            <select class="form-select mb-3" aria-label="Sélectionner une catégorie" name="categorie" id="category">
+                                <option selected disabled>Sélectionner une catégorie</option>
+                                {% for category in categories %}
+                                    <option value="{{ category }}" {{ criteria.category is defined and criteria.category is same as(category) ? 'selected' : '' }}>{{ category|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-primary" type="submit">Rechercher</button>
+                        <a class="btn btn-outline-secondary" href="{{ path('app_ulien') }}" rel="ugc nofollow">Réinitialiser</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row m-0 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <p class="resultList fs-3 m-0">
+                    {{ nbLinks }} Lien{{ nbLinks > 1 ? 's' : '' }}
+                    correspond{{ nbLinks > 1 ? 'ent' : '' }}
+                </p>
+
+                <div>
+                    <select class="form-select orderBy" aria-label="Trier la liste">
+                        <option value="release_date_recent" selected>Date de création (récent)</option>
+                        <option value="release_date_ancient">Date de création (ancien)</option>
+                        <option value="update_date_recent">Date de modification (récent)</option>
+                        <option value="update_date_ancient">Date de modification (ancien)</option>
+                        <option value="title_increase">Titre (A à Z)</option>
+                        <option value="title_decrease">Titre (Z à A)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="listLink" class="row m-0 mb-4 g-3"></div>
+    </section>
+{% endblock %}
