@@ -92,10 +92,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Documentation::class)]
     private Collection $documentations;
 
+    /**
+     * @var Collection<int, Link>
+     */
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Link::class)]
+    private Collection $links;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
         $this->documentations = new ArrayCollection();
+        $this->links = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -342,6 +349,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($documentation->getAuthor() === $this) {
                 $documentation->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Link>
+     */
+    public function getLinks(): Collection
+    {
+        return $this->links;
+    }
+
+    public function addLink(Link $link): static
+    {
+        if (!$this->links->contains($link)) {
+            $this->links->add($link);
+            $link->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLink(Link $link): static
+    {
+        if ($this->links->removeElement($link)) {
+            // set the owning side to null (unless already changed)
+            if ($link->getAuthor() === $this) {
+                $link->setAuthor(null);
             }
         }
 
