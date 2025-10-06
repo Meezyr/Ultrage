@@ -2,40 +2,72 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\PartialSearchFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\QueryParameter;
+use App\Filter\CategoriesFilter;
 use App\Repository\LinkRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: LinkRepository::class)]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            normalizationContext: ['groups' => 'link:list'],
+            parameters: [
+                'categories' => new QueryParameter(
+                    schema: ['type' => 'string'],
+                    filter: CategoriesFilter::class,
+                    description: 'Filter links by category name stored in the JSON array',
+                    required: false
+                ),
+                'title' => new QueryParameter(filter: new PartialSearchFilter()),
+            ],
+        )
+    ],
+    order: ['release_date' => 'DESC'],
+    paginationEnabled: false,
+)]
 class Link
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['link:list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups(['link:list'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 200, nullable: true)]
+    #[Groups(['link:list'])]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Url]
+    #[Groups(['link:list'])]
     private ?string $url = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['link:list'])]
     private ?array $categories = [];
 
     #[ORM\ManyToOne(inversedBy: 'links')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['link:list'])]
     private ?User $author = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['link:list'])]
     private ?\DateTimeInterface $release_date = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(['link:list'])]
     private ?\DateTimeInterface $update_date = null;
 
     public function getId(): ?int
