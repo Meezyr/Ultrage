@@ -65,7 +65,7 @@ class ULienController extends AbstractController
             }
 
             if (!empty($category = $request->query->get('categorie'))) {
-                $criteria['categories'] = urldecode($category);
+                $criteria['category'] = urldecode($category);
             }
 
             $criteria['order'] = $orderName;
