@@ -34,7 +34,7 @@ $(document).ready(function () {
 
     // Modifier documentation
     if (window.location.pathname.includes("modifier")) {
-        const slugDoc = window.location.pathname.slice(40, window.location.pathname.length);
+        const slugDoc = window.location.pathname.split('/').pop();
 
         $.ajax({
             url: '/u-documentation/info-documentation',

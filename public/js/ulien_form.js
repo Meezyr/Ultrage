@@ -34,15 +34,15 @@ $(document).ready(function () {
 
     // Modifier lien
     if (window.location.pathname.includes("modifier")) {
-        const idLink = window.location.pathname.slice(40, window.location.pathname.length);
+        const idLink = window.location.pathname.split('/').pop();
 
         $.ajax({
             url: '/u-lien/info-lien',
             dataType: "json",
             type: "GET",
-            data: {id: idLink},
+            data: {id: idLink.toString()},
             success: function (data) {
-                data.category.forEach((item) => {
+                data.categories.forEach((item) => {
                     if (item) {
                         arrayCategory.push(item);
                         $('#link_form_categories').val(arrayCategory);
