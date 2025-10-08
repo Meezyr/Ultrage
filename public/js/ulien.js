@@ -17,7 +17,7 @@ $(document).ready(function () {
             '<div class="card-body d-flex flex-column justify-content-between gap-4">' +
             '<div class="texts-card">' +
             '<h5 class="card-title"><strong>' + item.title + '</strong></h5>';
-        if (item.excerpt) {
+        if (item.description) {
             html += '<p class="card-text">' + item.description + '</p>';
         }
         html += '<p class="card-text">' +
